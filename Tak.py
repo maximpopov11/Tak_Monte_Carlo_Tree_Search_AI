@@ -5,8 +5,8 @@ from logging import raiseExceptions
 GameState = namedtuple('GameState', 'to_move, board, pieces, moves')
 
 class pieceType(Enum):
-        """"Enum enables easy access to standardized piece characteristics"""
-        BLACK, WHITE, WALL,TILE,CAPSTONE = range(3)
+    """"Enum enables easy access to standardized piece characteristics"""
+    WALL,TILE,CAPSTONE = range(3)
 class pieceColor(Enum):
     BLACK,WHITE = range(2)
 
@@ -66,7 +66,7 @@ class Tak:
                             if self.findRoads(space[len(space)-1]):
                                 playerRoads.add(space[len(space)-1].color)
         if len(playerRoads):
-            #player who made the winning move gets the win, regardless of whether not enemy also had the road
+            #player who made the winning move gets the win, regardless of whether not enemy also had a road
             if playerRoads.intersection({GameState.to_move}):
                 if len(playerRoads)==2:
                     print(f"Winner: {playerRoads.difference({GameState.to_move}).pop()}")
