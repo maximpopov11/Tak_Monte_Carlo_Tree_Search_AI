@@ -6,18 +6,20 @@ GameState = namedtuple('GameState', 'to_move, board, pieces, moves')
 
 class pieceType(Enum):
         """"Enum enables easy access to standardized piece characteristics"""
-        BLACK, WHITE, WALL,TILE,CAPSTONE = range(5)
+        BLACK, WHITE, WALL,TILE,CAPSTONE = range(3)
+class pieceColor(Enum):
+    BLACK,WHITE = range(2)
 
 class Piece:
     """Tak game piece represents color, type, and XYZ position of piece"""
     def __init__(self, color, type, position):
         self.color = color
         self.type = type
-        self.position = [position[0],position[1],position[2]] #row, col, dequeIndex
+        self.position = [position[0], position[1], position[2]] #row, col, dequeIndex
     
     def __repr__(self):
         rep = ""
-        rep = "B" if self.color == pieceType.BLACK else "W"
+        rep = "B" if self.color == pieceColor.BLACK else "W"
         if self.type == pieceType.WALL:
             rep += "W"
         elif self.type == pieceType.TILE:
@@ -43,7 +45,7 @@ class Tak:
         self.black_moves = []
         self.board_length = board_length
         moves = self.placements + self.white_moves
-        self.initial = GameState(to_move='W', board=self.board, pieces=self.white_pieces, moves=moves)
+        self.initial = GameState(to_move=pieceColor.WHITE, board=self.board, pieces=self.white_pieces, moves=moves)
 
     def terminal_test(self):
         """Terminal States:\n\t
@@ -52,7 +54,7 @@ class Tak:
         of player tiles/capstone pieces belonging to a single player. If a move 
         causes both players to have roads, the moving player wins."""
         allPiecesPlaced = self.white_pieces == [0,0] or self.black_pieces == [0,0]
-        
+        playerRoads = set()
         fewestPieces = 1
         #Checks for roads and board coverage
         for j,row in enumerate(self.board):
@@ -63,8 +65,18 @@ class Tak:
                     if len(space) > 0:      #There's at least 1 piece in the current location
                         if space[len(space)-1].type != pieceType.WALL: #Piece can be part of road
                             if self.findRoads(space[len(space)-1]):
-                                print(f"Road Found! Player: {space[len(space)-1].color}")
-                                return True
+                                playerRoads.add(space[len(space)-1].color)
+        if len(playerRoads):
+            #player who made the winning move gets the win, regardless of whether not enemy also had the road
+            if playerRoads.intersection({GameState.to_move}):
+                if len(playerRoads)==2:
+                    print(f"Winner: {playerRoads.difference({GameState.to_move}).pop()}")
+                else:
+                    print(f"Winner: {GameState.to_move}")
+            else:
+                print(f"Winner: {playerRoads.pop()}")   
+            return True
+            
 
         #Score tallies after flat win condition detected
         if fewestPieces == 1 or allPiecesPlaced:
@@ -74,11 +86,11 @@ class Tak:
             for row in self.board:
                 for space in row:
                     if space[len(space)-1].type == pieceType.TILE:
-                        if space[len(space)-1].color == pieceType.WHITE:
+                        if space[len(space)-1].color == pieceColor.WHITE:
                             white += 1
                         else:
                             black += 1
-            print(f"Black: {black} | White: {white}")
+            print(f"White: {white} | Black: {black}")
             return True
         
         return False
