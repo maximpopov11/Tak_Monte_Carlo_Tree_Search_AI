@@ -16,7 +16,6 @@ class Piece:
         self.position = [position[0],position[1],position[2]] #row, col, dequeIndex
     
     def __repr__(self):
-        rep = ""
         rep = "B" if self.color == pieceType.BLACK else "W"
         if self.type == pieceType.WALL:
             rep += "W"
