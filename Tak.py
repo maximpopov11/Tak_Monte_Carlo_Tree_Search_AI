@@ -1,7 +1,12 @@
 from collections import deque, namedtuple
+from copy import deepcopy
 from enum import Enum
 
-GameState = namedtuple('GameState', 'to_move, board, pieces, moves')
+GameState = namedtuple('GameState', 'to_move, board, moves')
+
+
+class PieceColor(Enum):
+    BLACK, WHITE = range(2)
 
 
 class PieceType(Enum):
@@ -9,8 +14,8 @@ class PieceType(Enum):
     WALL, TILE, CAPSTONE = range(3)
 
 
-class PieceColor(Enum):
-    BLACK, WHITE = range(2)
+class MoveType(Enum):
+    PLACEMENT, STACK_MOVE = range(2)
 
 
 class Piece:
@@ -48,9 +53,34 @@ class Tak:
         self.placements = [(x, y) for x in range(0, board_length) for y in range(0, board_length)]
         self.white_moves = []
         self.black_moves = []
+        self.moves = self.placements
         self.board_length = board_length
-        moves = self.placements + self.white_moves
-        self.initial = GameState(to_move=PieceColor.WHITE, board=self.board, pieces=self.white_pieces, moves=moves)
+        self.initial = GameState(to_move=PieceColor.WHITE, board=self.board, moves=self.moves)
+
+    def result(self, state, move):
+        if move not in state.moves:
+            raise ValueError('Given move is not in state.moves.')
+        board = deepcopy(state)
+        if move.type == MoveType.PLACEMENT:
+            # TODO: placement move
+            pass
+        elif move.type == MoveType.STACK_MOVE:
+            # TODO: stack move
+            pass
+        else:
+            raise ValueError('Given move has a nonexistent type.')
+        self.__update_moves(move)
+        to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
+        moves = self.__get_moves()
+        return GameState(to_move=to_move, board=board, moves=moves)
+
+    def __get_moves(self):
+        """Returns legal moves."""
+        return self.white_moves if GameState.to_move == PieceColor.WHITE else self.black_moves
+
+    def __update_moves(self, move):
+        # TODO: update moves
+        pass
 
     def terminal_test(self):
         """Terminal States:\n\t
