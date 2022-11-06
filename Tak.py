@@ -10,16 +10,12 @@ class PieceColor(Enum):
 
 
 class PieceType(Enum):
-    """"Enum enables easy access to standardized piece characteristics"""
+    """Enum enables easy access to standardized piece characteristics."""
     WALL, TILE, CAPSTONE = range(3)
 
 
-class MoveType(Enum):
-    PLACEMENT, STACK_MOVE = range(2)
-
-
 class Piece:
-    """Tak game piece represents color, type, and XYZ position of piece"""
+    """Tak game piece represents color, type, and XYZ position of piece."""
 
     def __init__(self, color, type, position):
         self.color = color
@@ -37,6 +33,29 @@ class Piece:
         return rep
 
 
+class PlacementMove:
+    # TODO: implement placement move
+    """Tak piece placement move."""
+    pass
+
+
+class Direction(Enum):
+    """Direction for stack movement."""
+    UP = (-1, 0)
+    DOWN = (1, 0)
+    LEFT = (0, -1)
+    RIGHT = (0, 1)
+
+
+class StackMove:
+    """Tak stack movement move."""
+
+    def __init__(self, position, direction, stack_remainders):
+        self.position = position
+        self.direction = direction
+        self.stack_remainders = stack_remainders
+
+
 class Tak:
     """Tak game object which controls all game aspects."""
 
@@ -50,7 +69,8 @@ class Tak:
                     self.board[i].append(deque())
         self.white_pieces = [num_stones, num_capstones]
         self.black_pieces = [num_stones, num_capstones]
-        self.placements = [(x, y) for x in range(0, board_length) for y in range(0, board_length)]
+        # TODO: set initial placement moves using new system
+        self.placements = []
         self.white_moves = []
         self.black_moves = []
         self.moves = self.placements
@@ -61,11 +81,22 @@ class Tak:
         if move not in state.moves:
             raise ValueError('Given move is not in state.moves.')
         board = deepcopy(state)
-        if move.type == MoveType.PLACEMENT:
-            # TODO: placement move
+        if isinstance(move, PlacementMove):
+            # TODO: placement move result
             pass
-        elif move.type == MoveType.STACK_MOVE:
-            # TODO: stack move
+        elif isinstance(move, StackMove):
+            initial_y = move.position[0]
+            initial_x = move.position[1]
+            initial_space = GameState.board[initial_y, initial_x]
+            target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction[0]
+            target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction[1]
+            target_space = GameState.board[target_y, target_x]
+            for i in range(len(move.stack_remainders) - 1, 0):
+                for j in range(move.stack_remainders[i]):
+                    target_space.append(initial_space.pop())
+                target_y -= move.direction[0]
+                target_x -= move.direction[1]
+                target_space = GameState.board[target_y, target_x]
             pass
         else:
             raise ValueError('Given move has a nonexistent type.')
@@ -79,8 +110,14 @@ class Tak:
         return self.white_moves if GameState.to_move == PieceColor.WHITE else self.black_moves
 
     def __update_moves(self, move):
-        # TODO: update moves
-        pass
+        if isinstance(move, PlacementMove):
+            # TODO: update placement moves
+            pass
+        elif isinstance(move, StackMove):
+            # TODO: update stack moves
+            pass
+        else:
+            raise ValueError('Given move has a nonexistent type.')
 
     def terminal_test(self):
         """Terminal States:\n\t
@@ -131,7 +168,7 @@ class Tak:
 
     def __find_roads(self, piece):
         """Starting point of a recursive DFS looking for roads across the 2D board array.
-        Returns true if a road is found originating from the given piece"""
+        Returns true if a road is found originating from the given piece."""
         row = piece.position[0]
         col = piece.position[1]
         left = col - 1
@@ -158,7 +195,7 @@ class Tak:
 
     def __find_roads_rec(self, i, j, color, row_start, col_start, seen):
         """Recursive DFS across the 2D board array along orthogonal paths, 
-        returns true if current node is at opposite end from starting node"""
+        returns true if current node is at opposite end from starting node."""
         top_stack = len(self.board[i][j]) - 1  # If there's a piece at the passed coords
         if top_stack >= 0:
             piece = self.board[i][j][top_stack]  # Top piece of stack at passed coords
