@@ -69,18 +69,15 @@ class Tak:
                     self.board[i].append(deque())
         self.white_pieces = [num_stones, num_capstones]
         self.black_pieces = [num_stones, num_capstones]
-        # TODO: set initial placement moves using new system
-        self.placements = []
-        self.white_moves = []
-        self.black_moves = []
-        self.moves = self.placements
+        self.moves = self.__get_moves()
         self.board_length = board_length
         self.initial = GameState(to_move=PieceColor.WHITE, board=self.board, moves=self.moves)
 
     def result(self, state, move):
+        """Adjudicates the result of the game after the move being made."""
         if move not in state.moves:
             raise ValueError('Given move is not in state.moves.')
-        board = deepcopy(state)
+        board = deepcopy(state.board)
         if isinstance(move, PlacementMove):
             # TODO: placement move result
             pass
@@ -97,27 +94,18 @@ class Tak:
                 target_y -= move.direction[0]
                 target_x -= move.direction[1]
                 target_space = GameState.board[target_y, target_x]
-            pass
         else:
             raise ValueError('Given move has a nonexistent type.')
-        self.__update_moves(move)
         to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
         moves = self.__get_moves()
         return GameState(to_move=to_move, board=board, moves=moves)
 
     def __get_moves(self):
         """Returns legal moves."""
-        return self.white_moves if GameState.to_move == PieceColor.WHITE else self.black_moves
-
-    def __update_moves(self, move):
-        if isinstance(move, PlacementMove):
-            # TODO: update placement moves
-            pass
-        elif isinstance(move, StackMove):
-            # TODO: update stack moves
-            pass
-        else:
-            raise ValueError('Given move has a nonexistent type.')
+        moves = []
+        # TODO: add placement moves
+        # TODO: add stack moves
+        return moves
 
     def terminal_test(self):
         """Terminal States:\n\t
