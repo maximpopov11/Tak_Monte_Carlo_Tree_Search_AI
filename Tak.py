@@ -34,9 +34,11 @@ class Piece:
 
 
 class PlacementMove:
-    # TODO: implement placement move
     """Tak piece placement move."""
-    pass
+
+    def __init__(self, position, piece):
+        self.position = position
+        self.piece = piece
 
 
 class Direction(Enum):
@@ -79,8 +81,7 @@ class Tak:
             raise ValueError('Given move is not in state.moves.')
         board = deepcopy(state.board)
         if isinstance(move, PlacementMove):
-            # TODO: placement move result
-            pass
+            board[move.position[0]][move.position[1]].append(move.piece)
         elif isinstance(move, StackMove):
             initial_y = move.position[0]
             initial_x = move.position[1]
@@ -97,13 +98,21 @@ class Tak:
         else:
             raise ValueError('Given move has a nonexistent type.')
         to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
-        moves = self.__get_moves()
+        moves = self.__get_moves(state, to_move)
         return GameState(to_move=to_move, board=board, moves=moves)
 
-    def __get_moves(self):
+    def __get_moves(self, state, color):
         """Returns legal moves."""
         moves = []
-        # TODO: add placement moves
+        pieces = self.white_pieces if color == PieceColor.WHITE else self.black_pieces
+        for y in range(0, self.board_length):
+            for x in range(0, self.board_length):
+                if len(state.board[y][x]) == 0:
+                    if pieces[0] > 0:
+                        moves.append(Piece(color, PieceType.TILE, (x, y)))
+                        moves.append(Piece(color, PieceType.WALL, (x, y)))
+                    if pieces[1] > 0:
+                        moves.append(Piece(color, PieceType.CAPSTONE, (x, y)))
         # TODO: add stack moves
         return moves
 
