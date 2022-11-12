@@ -43,10 +43,10 @@ class PlacementMove:
 
 class Direction(Enum):
     """Direction for stack movement."""
-    UP = (-1, 0)
-    DOWN = (1, 0)
-    LEFT = (0, -1)
-    RIGHT = (0, 1)
+    UP = (0, -1)
+    DOWN = (0, 1)
+    LEFT = (-1, 0)
+    RIGHT = (1, 0)
 
 
 class StackMove:
@@ -71,9 +71,11 @@ class Tak:
                     self.board[i].append(deque())
         self.white_pieces = [num_stones, num_capstones]
         self.black_pieces = [num_stones, num_capstones]
-        self.moves = self.__get_moves()
+        board = self.board
+        to_move = PieceColor.WHITE
+        self.moves = self.__get_moves(board, to_move)
         self.board_length = board_length
-        self.initial = GameState(to_move=PieceColor.WHITE, board=self.board, moves=self.moves)
+        self.initial = GameState(to_move=to_move, board=board, moves=self.moves)
 
     def result(self, state, move):
         """Adjudicates the result of the game after the move being made."""
@@ -101,20 +103,41 @@ class Tak:
         moves = self.__get_moves(state, to_move)
         return GameState(to_move=to_move, board=board, moves=moves)
 
-    def __get_moves(self, state, color):
+    def __get_moves(self, board, color):
         """Returns legal moves."""
         moves = []
         pieces = self.white_pieces if color == PieceColor.WHITE else self.black_pieces
         for y in range(0, self.board_length):
             for x in range(0, self.board_length):
-                if len(state.board[y][x]) == 0:
+                stack = board[y][x]
+                # placement moves
+                if len(stack) == 0:
                     if pieces[0] > 0:
-                        moves.append(Piece(color, PieceType.TILE, (x, y)))
-                        moves.append(Piece(color, PieceType.WALL, (x, y)))
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.TILE, (x, y))))
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.WALL, (x, y))))
                     if pieces[1] > 0:
-                        moves.append(Piece(color, PieceType.CAPSTONE, (x, y)))
-        # TODO: add stack moves
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.CAPSTONE, (x, y))))
+                # stack moves
+                elif stack[-1].color == color:
+                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.UP)
+                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.DOWN)
+                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.LEFT)
+                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.RIGHT)
         return moves
+
+    def __get_stack_moves_in_direction(self, moves, board, position, direction):
+        stack = board[position[1]][position[0]]
+        max_moving = min(len(stack), self.board_length)
+        for num_moving in range(1, max_moving + 1):
+            for space_range in range(1, num_moving):
+                # for each combination of extra piece allocations create a new move
+                stack_remainders = []
+                unassigned = num_moving
+                for i in range(space_range):
+                    stack_remainders.append(1)
+                    unassigned -= 1
+                # TODO: iterate through all combinations of extra piece allocations into array and add a move for each
+                moves.append(StackMove(position, direction, stack_remainders))
 
     def terminal_test(self):
         """Terminal States:\n\t
