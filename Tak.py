@@ -128,7 +128,7 @@ class Tak:
     def __get_stack_moves_in_direction(self, moves, board, position, direction):
         stack = board[position[1]][position[0]]
         max_moving = min(len(stack), self.board_length)
-        for num_moving in range(1, max_moving + 1):
+        for num_moving in range(1, max_moving):
             end_x = position[0] + direction[0]
             end_y = position[1] + direction[1]
             if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
