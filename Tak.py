@@ -129,6 +129,10 @@ class Tak:
         stack = board[position[1]][position[0]]
         max_moving = min(len(stack), self.board_length)
         for num_moving in range(1, max_moving + 1):
+            end_x = position[0] + direction[0]
+            end_y = position[1] + direction[1]
+            if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
+                break
             for space_range in range(1, num_moving):
                 # for each combination of extra piece allocations create a new move
                 stack_remainders = []
