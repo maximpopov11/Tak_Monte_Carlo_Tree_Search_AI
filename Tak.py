@@ -119,10 +119,10 @@ class Tak:
                         moves.append(PlacementMove((x, y), Piece(color, PieceType.CAPSTONE, (x, y))))
                 # stack moves
                 elif stack[-1].color == color:
-                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.UP)
-                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.DOWN)
-                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.LEFT)
-                    self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.RIGHT)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.UP)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.DOWN)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.LEFT)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.RIGHT)
         return moves
 
     STACK_REMAINDERS = [
@@ -158,7 +158,7 @@ class Tak:
         [1, 1, 1, 2],
     ]
 
-    def __get_stack_moves_in_direction(self, moves, board, position, direction):
+    def __get_stack_moves_in_direction(self, moves, position, direction):
         max_distance = 0
         while True:
             end_x = position[0] + direction[0]
