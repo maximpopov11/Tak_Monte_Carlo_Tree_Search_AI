@@ -65,10 +65,7 @@ class Tak:
         """Set the initial game state."""
         self.board = board
         if len(self.board) == 0:
-            for i in range(board_length):
-                self.board.append([])
-                for j in range(board_length):
-                    self.board[i].append(deque())
+            self.board = blank_board()
         self.white_pieces = [num_stones, num_capstones]
         self.black_pieces = [num_stones, num_capstones]
         board = self.board
@@ -285,9 +282,15 @@ class Tak:
         white.extend(white_end)
         black.extend(black_end)
         white.extend(black)
-        return white
+        return bits_to_int(white)
 
-    
+
+def bits_to_int(bits):
+    res = 0
+    for b in bits:
+        res *= 2
+        res += b
+    return res
 
 
 def piece_to_bits(piece):
@@ -309,6 +312,45 @@ def int_to_bits(num, bits):
         num //= 2
     return res[::-1]    
 
+
+def decode_state(num):
+    board = blank_board()
+    game_binary = int_to_bits(num, 570)
+    i,j = 0,0 
+    capstone = False
+    while i < 570:  #Python for loops are stupid and I hate them.
+        if i == 273 or i == 558:
+            piece = game_binary[i:i+12]
+            capstone = True
+            i -= 1
+        else:
+            piece = game_binary[i:i+13]
+            capstone = False
+        i+=13
+        j += 1
+        if piece == [1] * 13 or piece == [1] * 12:
+            continue
+        row = bits_to_int(piece[0:3])
+        col = bits_to_int(piece[3:6])
+        dqidx = bits_to_int(piece[6:12])
+        if capstone:
+            type = PieceType.CAPSTONE
+        elif piece[12]:
+            type = PieceType.TILE
+        else:
+            type = PieceType.WALL
+        piece = Piece(PieceColor.WHITE if i < 285  else PieceColor.BLACK,type, (row,col,dqidx))
+        board[row][col].insert(dqidx,piece)
+
+    return board
+
+def blank_board():
+    board = []
+    for i in range(5):
+        board.append([])
+        for j in range(5):
+            board[i].append(deque())
+    return board
 """13 bit strings to fully define each piece and 12 
 bits for the capstones (x = 3, y = 3, z = 6, type = 1). 
 Then we can do white(13x21 + 12) + black(13x21 + 12) = 570 bit 
