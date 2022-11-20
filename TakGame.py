@@ -73,8 +73,8 @@ class Tak:
         self.black_pieces = [num_stones, num_capstones]
         board = self.board
         to_move = PieceColor.WHITE
-        self.moves = self.__get_moves(board, to_move)
         self.board_length = board_length
+        self.moves =[] # self.__get_moves(board, to_move)
         self.initial = GameState(to_move=to_move, board=board, moves=self.moves)
 
     def result(self, state, move):
@@ -250,3 +250,69 @@ class Tak:
         for colDir in col_dirs:
             if colDir in range(self.board_length) and (row, colDir) not in seen:
                 return self.__find_roads_rec(row, colDir, piece.color, row_start, col_start, seen)
+
+    def encode_state(self):
+        white = []
+        black = []
+        white_end = None
+        black_end = None
+        #iterate through pieces on board
+        for i in range(self.board_length):
+            for j in range(self.board_length):
+                for piece in self.board[i][j]:
+                    if piece.color == PieceColor.WHITE:
+                        if piece.type != PieceType.CAPSTONE:
+                            white.extend(piece_to_bits(piece))
+                        else:
+                            white_end = piece_to_bits(piece)
+                    else:
+                        if piece.type != PieceType.CAPSTONE:
+                            black.extend(piece_to_bits(piece))
+                        else:
+                            black_end = piece_to_bits(piece)
+
+        while len(white) + len(black) < 546:
+            if len(white) < 273:
+                white.append(1)
+            if len(black) < 273:
+                black.append(1)
+
+        if not white_end:
+            white_end = [1]*12
+        if not black_end:
+            black_end = [1]*12
+
+        white.extend(white_end)
+        black.extend(black_end)
+        white.extend(black)
+        return white
+
+    
+
+
+def piece_to_bits(piece):
+    res = []
+    res.extend(int_to_bits(piece.position[0], 3))
+    res.extend(int_to_bits(piece.position[1],3))
+    res.extend(int_to_bits(piece.position[2],6))
+    if piece.type == PieceType.WALL:
+        res.append(0)
+    elif piece.type == PieceType.TILE:
+        res.append(1)
+    return res
+
+
+def int_to_bits(num, bits):
+    res = []
+    for _ in range(bits):
+        res.append(num % 2)
+        num //= 2
+    return res[::-1]    
+
+"""13 bit strings to fully define each piece and 12 
+bits for the capstones (x = 3, y = 3, z = 6, type = 1). 
+Then we can do white(13x21 + 12) + black(13x21 + 12) = 570 bit 
+strings to define the state. Since 3 bits allow extra states from 
+what's needed to fully define all possibilities, we can choose one 
+of the 'extra' strings (e.g. 111,111,111111,1)  to indicate pieces 
+that aren't placed. """
