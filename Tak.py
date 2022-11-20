@@ -93,7 +93,7 @@ class Tak:
             target_space = GameState.board[target_y, target_x]
             for i in range(len(move.stack_remainders) - 1, 0):
                 for j in range(move.stack_remainders[i]):
-                    target_space.append(initial_space.pop())
+                    target_space.appendleft(initial_space.pop())
                 target_y -= move.direction[0]
                 target_x -= move.direction[1]
                 target_space = GameState.board[target_y, target_x]
@@ -125,22 +125,52 @@ class Tak:
                     self.__get_stack_moves_in_direction(moves, board, (x, y), Direction.RIGHT)
         return moves
 
+    STACK_REMAINDERS = [
+        [1],
+        [2],
+        [3],
+        [4],
+        [5],
+        [1, 1],
+        [2, 1],
+        [1, 2],
+        [3, 1],
+        [2, 2],
+        [1, 3],
+        [4, 1],
+        [3, 2],
+        [2, 3],
+        [1, 4],
+        [1, 1, 1],
+        [2, 1, 1],
+        [1, 2, 1],
+        [1, 1, 2],
+        [3, 1, 1],
+        [1, 3, 1],
+        [1, 1, 3],
+        [2, 2, 1],
+        [2, 1, 2],
+        [1, 2, 2],
+        [1, 1, 1, 1],
+        [2, 1, 1, 1],
+        [1, 2, 1, 1],
+        [1, 1, 2, 1],
+        [1, 1, 1, 2],
+    ]
+
     def __get_stack_moves_in_direction(self, moves, board, position, direction):
-        stack = board[position[1]][position[0]]
-        max_moving = min(len(stack), self.board_length)
-        for num_moving in range(1, max_moving):
+        max_distance = 0
+        while True:
             end_x = position[0] + direction[0]
             end_y = position[1] + direction[1]
             if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
                 break
-            for space_range in range(1, num_moving):
-                # for each combination of extra piece allocations create a new move
-                stack_remainders = []
-                unassigned = num_moving
-                for i in range(space_range):
-                    stack_remainders.append(1)
-                    unassigned -= 1
-                # TODO: iterate through all combinations of extra piece allocations into array and add a move for each
+            else:
+                max_distance += 1
+        for stack_remainders in self.STACK_REMAINDERS:
+            if len(stack_remainders) > max_distance:
+                break
+            else:
                 moves.append(StackMove(position, direction, stack_remainders))
 
     def terminal_test(self):
