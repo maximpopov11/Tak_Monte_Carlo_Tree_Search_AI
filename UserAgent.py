@@ -14,8 +14,10 @@ class User:
         # TODO: implement a nicer user-friendly board view
         for row in state.board:
             for space in row:
-                color = space[-1].color
-                symbol = 'W' if color == PieceColor.WHITE else 'B'
+                symbol = '_'
+                if len(space) > 0:
+                    color = space[-1].color
+                    symbol = 'W' if color == PieceColor.WHITE else 'B'
                 print(symbol, end=' ')
             print()
         pass
@@ -24,15 +26,15 @@ class User:
         # TODO: implement a nicer user-friendly move selection
         index = 0
         for move in state.moves:
-            type = "placement move" if isinstance(move) == PlacementMove else "stack move"
+            type = "placement move" if isinstance(move, PlacementMove) else "stack move"
             x = move.position[0]
             y = move.position[1]
-            print(index, '. ', type, ' at (', x, ', ', y, ')')
+            print(index, type, ' at (', x, ',', y, ')')
             index += 1
         while True:
-            input = input('Enter the number correlating to the move you would like to make.')
+            user_input = input('Enter the number correlating to the move you would like to make: ')
             try:
-                index = int(input)
+                index = int(user_input)
                 if 0 <= index <= len(state.moves) - 1:
                     break
                 else:

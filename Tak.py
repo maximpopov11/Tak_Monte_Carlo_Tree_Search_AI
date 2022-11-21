@@ -63,6 +63,7 @@ class Tak:
     """Tak game object which controls all game aspects."""
 
     def __init__(self, board_length, num_stones, num_capstones, board=[]):
+        self.board_length = board_length
         self.board = board
         if len(self.board) == 0:
             for i in range(board_length):
@@ -74,7 +75,6 @@ class Tak:
         board = self.board
         to_move = PieceColor.WHITE
         self.moves = self.__get_moves(board, to_move)
-        self.board_length = board_length
         self.initial = GameState(to_move=to_move, board=board, moves=self.moves)
 
     def play_game(self, white_agent, black_agent):
@@ -96,22 +96,22 @@ class Tak:
         if isinstance(move, PlacementMove):
             board[move.position[0]][move.position[1]].append(move.piece)
         elif isinstance(move, StackMove):
-            initial_y = move.position[0]
-            initial_x = move.position[1]
-            initial_space = GameState.board[initial_y, initial_x]
+            initial_x = move.position[0]
+            initial_y = move.position[1]
+            initial_space = board[initial_y][initial_x]
             target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction[0]
             target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction[1]
-            target_space = GameState.board[target_y, target_x]
+            target_space = board[target_y][target_x]
             for i in range(len(move.stack_remainders) - 1, 0):
                 for j in range(move.stack_remainders[i]):
                     target_space.appendleft(initial_space.pop())
                 target_y -= move.direction[0]
                 target_x -= move.direction[1]
-                target_space = GameState.board[target_y, target_x]
+                target_space = board[target_y][target_x]
         else:
             raise ValueError('Given move has a nonexistent type.')
         to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
-        moves = self.__get_moves(state, to_move)
+        moves = self.__get_moves(board, to_move)
         return GameState(to_move=to_move, board=board, moves=moves)
 
     def __get_moves(self, board, color):
@@ -124,16 +124,16 @@ class Tak:
                 # placement moves
                 if len(stack) == 0:
                     if pieces[0] > 0:
-                        moves.append(PlacementMove((x, y), Piece(color, PieceType.TILE, (x, y))))
-                        moves.append(PlacementMove((x, y), Piece(color, PieceType.WALL, (x, y))))
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.TILE, (x, y, 0))))
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.WALL, (x, y, 0))))
                     if pieces[1] > 0:
-                        moves.append(PlacementMove((x, y), Piece(color, PieceType.CAPSTONE, (x, y))))
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.CAPSTONE, (x, y, 0))))
                 # stack moves
                 elif stack[-1].color == color:
-                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.UP)
-                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.DOWN)
-                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.LEFT)
-                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.RIGHT)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.UP.value)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.DOWN.value)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.LEFT.value)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.RIGHT.value)
         return moves
 
     STACK_REMAINDERS = [
@@ -172,9 +172,11 @@ class Tak:
     def __get_stack_moves_in_direction(self, moves, position, direction):
         """Adds all possible stack moves in the given direction to moves"""
         max_distance = 0
+        end_x = position[0]
+        end_y = position[1]
         while True:
-            end_x = position[0] + direction[0]
-            end_y = position[1] + direction[1]
+            end_x += direction[0]
+            end_y += direction[1]
             if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
                 break
             else:
