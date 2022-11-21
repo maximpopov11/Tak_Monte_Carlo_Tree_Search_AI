@@ -6,6 +6,7 @@ GameState = namedtuple('GameState', 'to_move, board, moves')
 
 
 class PieceColor(Enum):
+    """Enum enables easy access to standardized piece colors."""
     BLACK, WHITE = range(2)
 
 
@@ -62,7 +63,6 @@ class Tak:
     """Tak game object which controls all game aspects."""
 
     def __init__(self, board_length, num_stones, num_capstones, board=[]):
-        """Set the initial game state."""
         self.board = board
         if len(self.board) == 0:
             for i in range(board_length):
@@ -78,6 +78,7 @@ class Tak:
         self.initial = GameState(to_move=to_move, board=board, moves=self.moves)
 
     def play_game(self, white_agent, black_agent):
+        """Plays the game by querying the given agents for moves and updating the board respectively"""
         state = self.initial
         agent = white_agent
         while True:
@@ -169,6 +170,7 @@ class Tak:
     ]
 
     def __get_stack_moves_in_direction(self, moves, position, direction):
+        """Adds all possible stack moves in the given direction to moves"""
         max_distance = 0
         while True:
             end_x = position[0] + direction[0]
