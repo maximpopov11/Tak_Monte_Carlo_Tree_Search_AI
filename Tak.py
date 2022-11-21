@@ -77,6 +77,16 @@ class Tak:
         self.board_length = board_length
         self.initial = GameState(to_move=to_move, board=board, moves=self.moves)
 
+    def play_game(self, white_agent, black_agent):
+        state = self.initial
+        agent = white_agent
+        while True:
+            move = agent.query(state)
+            state = self.result(state, move)
+            agent = white_agent if agent == black_agent else black_agent
+            if self.terminal_test():
+                break
+
     def result(self, state, move):
         """Adjudicates the result of the game after the move being made."""
         if move not in state.moves:
