@@ -95,6 +95,9 @@ class Tak:
         board = deepcopy(state.board)
         if isinstance(move, PlacementMove):
             board[move.position[0]][move.position[1]].append(move.piece)
+            pieces = self.white_pieces if state.to_move == PieceColor.WHITE else self.black_pieces
+            position = 1 if move.piece.type == PieceType.CAPSTONE else 0
+            pieces[position] -= 1
         elif isinstance(move, StackMove):
             initial_x = move.position[0]
             initial_y = move.position[1]
@@ -224,7 +227,7 @@ class Tak:
             black = 0
             for row in self.board:
                 for space in row:
-                    if space[len(space) - 1].type == PieceType.TILE:
+                    if len(space) > 0 and space[len(space) - 1].type == PieceType.TILE:
                         if space[len(space) - 1].color == PieceColor.WHITE:
                             white += 1
                         else:
