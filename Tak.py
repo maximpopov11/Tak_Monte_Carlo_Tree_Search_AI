@@ -1,20 +1,22 @@
 from collections import deque, namedtuple
+from copy import deepcopy
 from enum import Enum
 
-GameState = namedtuple('GameState', 'to_move, board, pieces, moves')
-
-
-class PieceType(Enum):
-    """"Enum enables easy access to standardized piece characteristics"""
-    WALL, TILE, CAPSTONE = range(3)
+GameState = namedtuple('GameState', 'to_move, board, moves')
 
 
 class PieceColor(Enum):
+    """Enum enables easy access to standardized piece colors."""
     BLACK, WHITE = range(2)
 
 
+class PieceType(Enum):
+    """Enum enables easy access to standardized piece characteristics."""
+    WALL, TILE, CAPSTONE = range(3)
+
+
 class Piece:
-    """Tak game piece represents color, type, and XYZ position of piece"""
+    """Tak game piece represents color, type, and XYZ position of piece."""
 
     def __init__(self, color, type, position):
         self.color = color
@@ -32,11 +34,36 @@ class Piece:
         return rep
 
 
+class PlacementMove:
+    """Tak piece placement move."""
+
+    def __init__(self, position, piece):
+        self.position = position
+        self.piece = piece
+
+
+class Direction(Enum):
+    """Direction for stack movement."""
+    UP = (0, -1)
+    DOWN = (0, 1)
+    LEFT = (-1, 0)
+    RIGHT = (1, 0)
+
+
+class StackMove:
+    """Tak stack movement move."""
+
+    def __init__(self, position, direction, stack_remainders):
+        self.position = position
+        self.direction = direction
+        self.stack_remainders = stack_remainders
+
+
 class Tak:
     """Tak game object which controls all game aspects."""
 
     def __init__(self, board_length, num_stones, num_capstones, board=[]):
-        """Set the initial game state."""
+        self.board_length = board_length
         self.board = board
         if len(self.board) == 0:
             for i in range(board_length):
@@ -45,12 +72,120 @@ class Tak:
                     self.board[i].append(deque())
         self.white_pieces = [num_stones, num_capstones]
         self.black_pieces = [num_stones, num_capstones]
-        self.placements = [(x, y) for x in range(0, board_length) for y in range(0, board_length)]
-        self.white_moves = []
-        self.black_moves = []
-        self.board_length = board_length
-        moves = self.placements + self.white_moves
-        self.initial = GameState(to_move=PieceColor.WHITE, board=self.board, pieces=self.white_pieces, moves=moves)
+        board = self.board
+        to_move = PieceColor.WHITE
+        self.moves = self.__get_moves(board, to_move)
+        self.initial = GameState(to_move=to_move, board=board, moves=self.moves)
+
+    def play_game(self, white_agent, black_agent):
+        """Plays the game by querying the given agents for moves and updating the board respectively"""
+        state = self.initial
+        agent = white_agent
+        while True:
+            move = agent.query(state)
+            state = self.result(state, move)
+            agent = white_agent if agent == black_agent else black_agent
+            if self.terminal_test():
+                break
+
+    def result(self, state, move):
+        """Adjudicates the result of the game after the move being made."""
+        if move not in state.moves:
+            raise ValueError('Given move is not in state.moves.')
+        board = deepcopy(state.board)
+        if isinstance(move, PlacementMove):
+            board[move.position[0]][move.position[1]].append(move.piece)
+        elif isinstance(move, StackMove):
+            initial_x = move.position[0]
+            initial_y = move.position[1]
+            initial_space = board[initial_y][initial_x]
+            target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction[0]
+            target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction[1]
+            target_space = board[target_y][target_x]
+            for i in range(len(move.stack_remainders) - 1, 0):
+                for j in range(move.stack_remainders[i]):
+                    target_space.appendleft(initial_space.pop())
+                target_y -= move.direction[0]
+                target_x -= move.direction[1]
+                target_space = board[target_y][target_x]
+        else:
+            raise ValueError('Given move has a nonexistent type.')
+        to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
+        moves = self.__get_moves(board, to_move)
+        return GameState(to_move=to_move, board=board, moves=moves)
+
+    def __get_moves(self, board, color):
+        """Returns legal moves."""
+        moves = []
+        pieces = self.white_pieces if color == PieceColor.WHITE else self.black_pieces
+        for y in range(0, self.board_length):
+            for x in range(0, self.board_length):
+                stack = board[y][x]
+                # placement moves
+                if len(stack) == 0:
+                    if pieces[0] > 0:
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.TILE, (x, y, 0))))
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.WALL, (x, y, 0))))
+                    if pieces[1] > 0:
+                        moves.append(PlacementMove((x, y), Piece(color, PieceType.CAPSTONE, (x, y, 0))))
+                # stack moves
+                elif stack[-1].color == color:
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.UP.value)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.DOWN.value)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.LEFT.value)
+                    self.__get_stack_moves_in_direction(moves, (x, y), Direction.RIGHT.value)
+        return moves
+
+    STACK_REMAINDERS = [
+        [1],
+        [2],
+        [3],
+        [4],
+        [5],
+        [1, 1],
+        [2, 1],
+        [1, 2],
+        [3, 1],
+        [2, 2],
+        [1, 3],
+        [4, 1],
+        [3, 2],
+        [2, 3],
+        [1, 4],
+        [1, 1, 1],
+        [2, 1, 1],
+        [1, 2, 1],
+        [1, 1, 2],
+        [3, 1, 1],
+        [1, 3, 1],
+        [1, 1, 3],
+        [2, 2, 1],
+        [2, 1, 2],
+        [1, 2, 2],
+        [1, 1, 1, 1],
+        [2, 1, 1, 1],
+        [1, 2, 1, 1],
+        [1, 1, 2, 1],
+        [1, 1, 1, 2],
+    ]
+
+    def __get_stack_moves_in_direction(self, moves, position, direction):
+        """Adds all possible stack moves in the given direction to moves"""
+        max_distance = 0
+        end_x = position[0]
+        end_y = position[1]
+        while True:
+            end_x += direction[0]
+            end_y += direction[1]
+            if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
+                break
+            else:
+                max_distance += 1
+        for stack_remainders in self.STACK_REMAINDERS:
+            if len(stack_remainders) > max_distance:
+                break
+            else:
+                moves.append(StackMove(position, direction, stack_remainders))
 
     def terminal_test(self):
         """Terminal States:\n\t
@@ -101,7 +236,7 @@ class Tak:
 
     def __find_roads(self, piece):
         """Starting point of a recursive DFS looking for roads across the 2D board array.
-        Returns true if a road is found originating from the given piece"""
+        Returns true if a road is found originating from the given piece."""
         row = piece.position[0]
         col = piece.position[1]
         left = col - 1
@@ -128,7 +263,7 @@ class Tak:
 
     def __find_roads_rec(self, i, j, color, row_start, col_start, seen):
         """Recursive DFS across the 2D board array along orthogonal paths, 
-        returns true if current node is at opposite end from starting node"""
+        returns true if current node is at opposite end from starting node."""
         top_stack = len(self.board[i][j]) - 1  # If there's a piece at the passed coords
         if top_stack >= 0:
             piece = self.board[i][j][top_stack]  # Top piece of stack at passed coords
