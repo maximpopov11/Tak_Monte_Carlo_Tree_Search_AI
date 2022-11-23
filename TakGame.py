@@ -32,7 +32,7 @@ BOARD_SIZE = 5
 
 ROWBITS =  m.ceil(m.log(BOARD_SIZE,2))
 COLBITS = ROWBITS
-ZBITS = m.ceil(m.log(2*(NUM_CAPSTONES+NUM_PIECES)),2)
+ZBITS = m.ceil(m.log(2*(NUM_CAPSTONES+NUM_PIECES),2))
 PIECE_SIZE = ROWBITS+COLBITS+ZBITS + 1  #No. of bits used in binary encoding of a piece
 CAPSTONE_SIZE = PIECE_SIZE - 1      #No. of bits used in binary encoding of a capstone
 GAMESIZE = 2 * (PIECE_SIZE*NUM_PIECES + CAPSTONE_SIZE*NUM_CAPSTONES)      #No. of bits used in binary encoding of game board
@@ -66,7 +66,7 @@ class Piece:
         self.type = type
         self.position = [position[0], position[1], position[2]]  # row, col, dequeIndex
 
-    def __repr__(self):
+    def __str__(self):
         rep = "B" if self.color == PieceColor.BLACK else "W"
         if self.type == PieceType.WALL:
             rep += "W"
