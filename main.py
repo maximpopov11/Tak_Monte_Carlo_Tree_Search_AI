@@ -3,6 +3,7 @@ from Tak import *
 from collections import deque
 import math as m
 
+<<<<<<< HEAD
 
 BOARD_LENGTH = 5	
 NUM_STONES = 21	
@@ -67,3 +68,5 @@ print(board)
 # t = Test.T1	
 # print(t)	
 # 0 commen
+=======
+>>>>>>> 0e991f27068a48cd6b673851072db07989d2a749
