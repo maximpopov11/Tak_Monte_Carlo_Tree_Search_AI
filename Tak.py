@@ -66,7 +66,7 @@ class Piece:
         self.type = type
         self.position = [position[0], position[1], position[2]]  # row, col, dequeIndex
 
-    def __str__(self):
+    def __repr__(self):
         rep = "B" if self.color == PieceColor.BLACK else "W"
         if self.type == PieceType.WALL:
             rep += "W"
@@ -107,9 +107,9 @@ class StackMove:
 
 def blank_board():
     board = []
-    for i in range(5):
+    for i in range(BOARD_SIZE):
         board.append([])
-        for j in range(5):
+        for j in range(BOARD_SIZE):
             board[i].append(deque())
     return board
 

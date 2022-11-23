@@ -1,9 +1,9 @@
 #Substantial referential and code-use credit to authors at https://ai-boson.github.io/mcts/
 import numpy as np
 from collections import defaultdict
-from TakGame import *
+from Tak import *
 
-class Node:
+class MCTSNode:
     def __init__(self, state_int, parent = None, parent_action = None, agent = PieceColor.WHITE, turn = PieceColor.WHITE):
         self.state_int = state_int
         self.turn = turn
@@ -35,7 +35,7 @@ class Node:
     def expand(self,board):
         action = self._untried_actions.pop()
         next_state = result(board,action)
-        child_node = Node(
+        child_node = MCTSNode(
             encode_state(next_state), 
             parent=self, 
             parent_action=action, 
@@ -97,3 +97,11 @@ class Node:
             v.backpropagate(reward)
         
         return self.best_child(c_param=0.1)
+
+def main():
+    initial_state = [1]*GAMESIZE
+    root = MCTSNode(state_int=initial_state)
+    selected_node = root.best_action()
+    action = selected_node.parent_action
+    print(action)
+    return 
