@@ -133,6 +133,18 @@ def player_still_has_pieces(board, player):
 
 
 #------------------------------------Moves------------------------------------#
+def play_game(self, white_agent, black_agent):
+        """Plays the game by querying the given agents for moves and updating the board respectively"""
+        state = self.initial
+        agent = white_agent
+        while True:
+            move = agent.query(state)
+            state = self.result(state, move)
+            agent = white_agent if agent == black_agent else black_agent
+            if self.terminal_test():
+                break
+
+
 
 def result(board, move):
     """Adjudicates the result of the game after the move being made."""
@@ -184,25 +196,56 @@ def get_moves(board, color):
                 get_stack_moves_in_direction(moves, board, (x, y), Direction.RIGHT)
     return moves
 
+    STACK_REMAINDERS = [
+        [1],
+        [2],
+        [3],
+        [4],
+        [5],
+        [1, 1],
+        [2, 1],
+        [1, 2],
+        [3, 1],
+        [2, 2],
+        [1, 3],
+        [4, 1],
+        [3, 2],
+        [2, 3],
+        [1, 4],
+        [1, 1, 1],
+        [2, 1, 1],
+        [1, 2, 1],
+        [1, 1, 2],
+        [3, 1, 1],
+        [1, 3, 1],
+        [1, 1, 3],
+        [2, 2, 1],
+        [2, 1, 2],
+        [1, 2, 2],
+        [1, 1, 1, 1],
+        [2, 1, 1, 1],
+        [1, 2, 1, 1],
+        [1, 1, 2, 1],
+        [1, 1, 1, 2],
+    ]
 
-def get_stack_moves_in_direction(moves, board, position, direction):
-    stack = board[position[1]][position[0]]
-    max_moving = min(len(stack), BOARD_SIZE)
-    for num_moving in range(1, max_moving):
-        end_x = position[0] + direction[0]
-        end_y = position[1] + direction[1]
-        if end_x < 0 or end_x >= BOARD_SIZE or end_y < 0 or end_y >= BOARD_SIZE:
-            break
-        for space_range in range(1, num_moving):
-            # for each combination of extra piece allocations create a new move
-            stack_remainders = []
-            unassigned = num_moving
-            for i in range(space_range):
-                stack_remainders.append(1)
-                unassigned -= 1
-            # TODO: iterate through all combinations of extra piece allocations into array and add a move for each
-            moves.append(StackMove(stack[0], direction, stack_remainders))
-
+    def __get_stack_moves_in_direction(self, moves, position, direction):
+        """Adds all possible stack moves in the given direction to moves"""
+        max_distance = 0
+        end_x = position[0]
+        end_y = position[1]
+        while True:
+            end_x += direction[0]
+            end_y += direction[1]
+            if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
+                break
+            else:
+                max_distance += 1
+        for stack_remainders in self.STACK_REMAINDERS:
+            if len(stack_remainders) > max_distance:
+                break
+            else:
+                moves.append(StackMove(position, direction, stack_remainders))
 
 #-----------------------------Terminal Test Code------------------------------#
 def terminal_test(board,last_to_move):
