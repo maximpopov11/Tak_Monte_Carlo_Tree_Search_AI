@@ -1,11 +1,13 @@
 #Substantial referential and code-use credit to authors at https://ai-boson.github.io/mcts/
 import numpy as np
 from collections import defaultdict
-import TakGame
+from TakGame import *
 
 class Node:
-    def __init__(self, state, parent = None, parent_action = None):
-        self.state = state
+    def __init__(self, state_int, parent = None, parent_action = None, agent = PieceColor.WHITE, turn = PieceColor.WHITE):
+        self.state_int = state_int
+        self.turn = turn
+        self.agent_color = agent
         self.parent = parent
         self.parent_action = parent_action
         self.children = []
@@ -18,10 +20,8 @@ class Node:
         return 
 
     def untried_actions(self):
-        self._untried_actions = None    # TODO: Find a way to use __get_moves() here...
-                                        # might need to generalize __get_moves() and a 
-                                        # lot of the Tak class to work outside of a game 
-                                        # instance for structure and memory purposes
+        board = decode_state(self.state_int)
+        self._untried_actions = get_moves(board,self.turn)
         return self._untried_actions
 
     def q(self):
@@ -32,36 +32,34 @@ class Node:
     def n(self):
         return self._number_of_visits
 
-    def expand(self):
+    def expand(self,board):
         action = self._untried_actions.pop()
-        next_state = None   # TODO: generalize TakGame.Tak.result() to work
-                            # outside of game instance. Modify result to return
-                            # encoded state. 
+        next_state = result(board,action)
         child_node = Node(
-            next_state, parent=self, parent_action=action)
+            encode_state(next_state), 
+            parent=self, 
+            parent_action=action, 
+            turn = PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE
+            )
 
         self.children.append(child_node)
         return child_node 
 
-    def is_terminal_node(self):
-        return TakGame.terminal_state(self.state)  
-        # TODO: generalize terminal_states(self.state) to take encoded state, 
-        # return (bool, 1 or 0 or -1 indicate w/notdone/l)
-
-    def rollout(self):
-        current_rollout_state = self.state
-    
-        while not TakGame.terminal_state(self.state):   # TODO: See is_terminal_node
+    def is_terminal_node(self,board):
+        return terminal_test(board, PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE)[0] 
         
-            possible_moves = None   # TODO: See untried_actions(),
-                                    # should be all legal moves from self.state
+
+    def rollout(self,board):
+        end_state = terminal_test(board, PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE)
+        while not end_state[0]:   
+            
+            possible_moves = self._untried_actions
             
             action = self.rollout_policy(possible_moves)
-            current_rollout_state = None    # TODO: See expand(),
-                                            # should be result(self.state)
+            board = result(board, action)
+            end_state = terminal_test(board, PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE)
 
-        return None  # TODO: implement function that accepts a terminal state
-                     # and returns 1/-1 for win or loss for moving player.
+        return 1 if end_state[1] == self.agent_color else -1
 
     def backpropagate(self, result):
         self._number_of_visits += 1.
@@ -79,23 +77,23 @@ class Node:
     def rollout_policy(self, possible_moves):
         return possible_moves[np.random.randint(len(possible_moves))]
 
-    def _tree_policy(self):
+    def _tree_policy(self,board):
         current_node = self
-        while not current_node.is_terminal_node():
+        while not current_node.is_terminal_node(board):
             if not current_node.is_fully_expanded():
-                return current_node.expand()
+                return current_node.expand(board)
             else:
                 current_node = current_node.best_child()
         return current_node
 
     def best_action(self):
         simulation_no = 100
-	
+        board = decode_state(self.state_int)
 	
         for i in range(simulation_no):
             
-            v = self._tree_policy()
-            reward = v.rollout()
+            v = self._tree_policy(board)
+            reward = v.rollout(board)
             v.backpropagate(reward)
         
         return self.best_child(c_param=0.1)
