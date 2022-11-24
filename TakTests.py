@@ -12,6 +12,7 @@ class RunTests(unittest.TestCase):
         super().__init__()
         self.test_play_game()
         self.test_result()
+        self.test_terminal()
         # TODO: test stack moving onto wall crushes wall
         # TODO: test stack moving onto capstone illegal
 
@@ -64,14 +65,14 @@ class RunTests(unittest.TestCase):
         for row in board1:
             for space in row:
                 color = PieceColor.WHITE if count1 % 2 == 0 else PieceColor.BLACK
-                piece = Piece(color, PieceType.TILE, None)
+                piece = Piece(color, PieceType.TILE, (-1, -1, -1))
                 space.append(piece)
         tak1 = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES, board1)
         self.assertTrue(tak1.terminal_test())
 
         board2 = deepcopy(board)
         for space in board2[0]:
-            space.append(Piece(PieceColor.WHITE, PieceType.TILE))
+            space.append(Piece(PieceColor.WHITE, PieceType.TILE, (-1, -1, -1)))
         tak2 = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES, board2)
         self.assertTrue(tak2.terminal_test())
 
