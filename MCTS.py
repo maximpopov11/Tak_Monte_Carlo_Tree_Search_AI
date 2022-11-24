@@ -1,4 +1,5 @@
 #Substantial referential and code-use credit to authors at https://ai-boson.github.io/mcts/
+from time import *
 import numpy as np
 from collections import defaultdict
 from Tak import *
@@ -48,17 +49,26 @@ class MCTSNode:
     def is_terminal_node(self,board):
         return terminal_test(board, PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE)[0] 
         
-
-    def rollout(self,board):
+    # TODO: Error here. Right now this rollout logic plays black's turns only. I.e. no white moves happen.
+    def rollout(self):
+        board = decode_state(self.state_int)
+        color = self.turn
+        # f.write(top_board_string(board)+'\n')
         end_state = terminal_test(board, PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE)
+        i = 0
         while not end_state[0]:   
             
-            possible_moves = self._untried_actions
-            
+            possible_moves = get_moves(board, color)
             action = self.rollout_policy(possible_moves)
             board = result(board, action)
-            end_state = terminal_test(board, PieceColor.BLACK if self.turn == PieceColor.WHITE else PieceColor.WHITE)
-
+            # f.write(top_board_string(board))
+            # f.write(stacks_string(board))
+            # f.write(f"{action}\n\n")
+            end_state = terminal_test(board, PieceColor.BLACK if color == PieceColor.WHITE else PieceColor.WHITE)
+            color = PieceColor.BLACK if color == PieceColor.WHITE else PieceColor.WHITE
+            i+=1
+        # f.seek(0) 
+        # f.write(f"Winner: {end_state[1]}\nMoves: {i}") 
         return 1 if end_state[1] == self.agent_color else -1
 
     def backpropagate(self, result):
@@ -87,23 +97,39 @@ class MCTSNode:
         return current_node
 
     def best_action(self):
-        simulation_no = 100
+        sim_goal = 100
+        sim_total = 0
         board = decode_state(self.state_int)
-	
-        for i in range(simulation_no):
-            
+        t_start = time()
+        t_curr = t_start
+        while t_curr - t_start < 30 and sim_total <= sim_goal :
+            # f = open(f"simulation{i+1}.txt","w")
+            print("Simulation No.:",sim_total+1,end = ' ')
             v = self._tree_policy(board)
-            reward = v.rollout(board)
+            reward = v.rollout()
             v.backpropagate(reward)
+            t_curr = time()
+            sim_total +=1
+            # f.close()
         
         return self.best_child(c_param=0.1)
 
 def main():
     initial_state = bits_to_int([1]*GAMESIZE)
+    game = TakGame(decode_state(initial_state))
     root = MCTSNode(state_int=initial_state)
-    selected_node = root.best_action()
-    action = selected_node.parent_action
-    print(action.piece, action.position)
+    while not root.is_terminal_node(decode_state(root.state_int)):
+        selected_node = root.best_action()
+        action = selected_node.parent_action
+        print(f"Root won {root._results[1]} out of {root._number_of_visits} games")
+        print(f"{action} won {selected_node._results[1]} out of {selected_node._number_of_visits} games")
+        make_move(game,action)
+        print(top_board_string(game.board))
+        root = selected_node
+
+
+    print("\nSelected Action: ", action.position, action.piece,"\nWins",selected_node._results[1], " out of ", selected_node._results[1]+selected_node._results[-1], " games")
+    print("\nRoot saw ", root.agent_color, " win ", root._results[1], " out of ", root._results[1] + root._results[-1]," games")
     return 
 
 if __name__ == "__main__":

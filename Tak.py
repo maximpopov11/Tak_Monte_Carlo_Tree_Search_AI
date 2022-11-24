@@ -87,26 +87,58 @@ class PlacementMove:
         self.piece = piece
         self.player = piece.color
 
+    def __repr__(self):
+        return f"{self.piece} {self.position}"
+
 
 class Direction(Enum):
     """Direction for stack movement."""
     value: tuple[int,int]
-    UP = (0, -1)
-    DOWN = (0, 1)
-    LEFT = (-1, 0)
-    RIGHT = (1, 0)
+    UP = (-1,0)
+    DOWN = (1,0)
+    LEFT = (0,-1)
+    RIGHT = (0,1)
 
 
 class StackMove:
     """Tak stack movement move."""
 
     def __init__(self, piece, direction, stack_remainders):
+        self.piece = piece
         self.position = piece.position
         self.player = piece.color
         self.direction = direction
         self.stack_remainders = stack_remainders
 
+    def __repr__(self):
+        return f"Stack at {self.position}, {self.direction}, Order: {self.stack_remainders}"
+
+
+class TakGame:
+    """The actual instance of the game that is played/matters"""
+    def __init__(self, board):
+        self.board = board
+        
 #-----------------------------Utility functions-------------------------------#
+
+def top_board_string(board):
+    res = '   0    1    2    3    4\n0|'
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if len(board[i][j]):
+                res += f" {board[i][j][-1]} |"
+            else:
+                res += "    |"
+        res += f"\n{i+1}|"
+    return res[:-2]
+
+def stacks_string(board):
+    res = ''
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if len(board[i][j]):
+                res += (f"[{i},{j}]: {board[i][j]}\n")
+    return res
 
 def blank_board():
     board = []
@@ -146,13 +178,11 @@ def play_game(board, white_agent, black_agent):
             if terminal_test(board)[0]:
                 break
 
-def make_move(board, move):
-    """Updates the GameState tuple to reflect a real change in game,
+def make_move(game, move):
+    """Updates a game instance to reflect a real change in game,
     i.e. a non-simulation move."""
-    GameState.board = result(board, move)
-    GameState.to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
-    GameState.moves = get_moves(GameState.board, GameState.to_move)
-
+    game.board = result(game.board, move)
+    
 def result(board, move):
     """Adjudicates the result of the game after the move being made."""
     moves = get_moves(board, move.player)
@@ -163,16 +193,21 @@ def result(board, move):
     if isinstance(move, PlacementMove):
         board_c[move.position[0]][move.position[1]].append(move.piece)
     elif isinstance(move, StackMove):
-        initial_x = move.position[0]
-        initial_y = move.position[1]
+        initial_x = move.position[1]
+        initial_y = move.position[0]
         initial_space = board_c[initial_y][initial_x]
-        target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction.value[0]
-        target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction.value[1]
+        target_y = initial_y + (len(move.stack_remainders)) * move.direction.value[0]
+        target_x = initial_x + (len(move.stack_remainders)) * move.direction.value[1]
         target_space = board_c[target_y][target_x]
-        for i in range(len(move.stack_remainders) - 1, 0):
+        for i in range(len(move.stack_remainders)-1, -1,-1):
             l = deque()
             for j in range(move.stack_remainders[i]):
-                l.appendleft(initial_space.pop())
+                piece = initial_space.pop()
+                piece.position[0] = target_y
+                piece.position[1] = target_x
+                piece.position[2] = len(target_space)
+                piece.position[2] += move.stack_remainders[i] - j - 1
+                l.appendleft(piece)
             target_space.extend(l)
             target_y -= move.direction.value[0]
             target_x -= move.direction.value[1]
@@ -181,79 +216,105 @@ def result(board, move):
         raise ValueError('Given move has a nonexistent type.')
     return board_c
     
-
+# TODO: Walls can be stacked on top of by walls and tiles rn. Big Bad
 def get_moves(board, color):
     """Returns legal moves."""
     moves = []
     pieces_left = player_still_has_pieces(board, color)
-    for y in range(0, BOARD_SIZE):
-        for x in range(0, BOARD_SIZE):
-            stack = board[y][x]
+    for row in range(0, BOARD_SIZE):
+        for col in range(0, BOARD_SIZE):
+            stack = board[row][col]
             # placement moves
             if len(stack) == 0:
                 if pieces_left[0]:
-                    moves.append(PlacementMove((x, y, 0), Piece(color, PieceType.TILE, (x, y, 0))))
-                    moves.append(PlacementMove((x, y, 0), Piece(color, PieceType.WALL, (x, y, 0))))
+                    moves.append(PlacementMove((row, col, 0), Piece(color, PieceType.TILE, (row, col, 0))))
+                    moves.append(PlacementMove((row, col, 0), Piece(color, PieceType.WALL, (row, col, 0))))
                 if pieces_left[1]:
-                    moves.append(PlacementMove((x, y, 0), Piece(color, PieceType.CAPSTONE, (x, y, 0))))
+                    moves.append(PlacementMove((row, col, 0), Piece(color, PieceType.CAPSTONE, (row, col, 0))))
             # stack moves
             elif stack[-1].color == color:
-                get_stack_moves_in_direction(moves, board, (x, y), Direction.UP)
-                get_stack_moves_in_direction(moves, board, (x, y), Direction.DOWN)
-                get_stack_moves_in_direction(moves, board, (x, y), Direction.LEFT)
-                get_stack_moves_in_direction(moves, board, (x, y), Direction.RIGHT)
+                get_stack_moves_in_direction(moves, board, (row, col), Direction.UP)
+                get_stack_moves_in_direction(moves, board, (row, col), Direction.DOWN)
+                get_stack_moves_in_direction(moves, board, (row, col), Direction.LEFT)
+                get_stack_moves_in_direction(moves, board, (row,col), Direction.RIGHT)
     return moves
 
+#MAINTAIN SUM ORDERING
 STACK_REMAINDERS = [
     [1],
     [2],
-    [3],
-    [4],
-    [5],
     [1, 1],
+    [3],
     [2, 1],
     [1, 2],
+    [1, 1, 1],
+    [4],
     [3, 1],
     [2, 2],
     [1, 3],
+    [2, 1, 1],
+    [1, 2, 1],
+    [1, 1, 2],
+    [1, 1, 1, 1],
+    [5],
     [4, 1],
     [3, 2],
     [2, 3],
     [1, 4],
-    [1, 1, 1],
-    [2, 1, 1],
-    [1, 2, 1],
-    [1, 1, 2],
     [3, 1, 1],
     [1, 3, 1],
     [1, 1, 3],
     [2, 2, 1],
     [2, 1, 2],
     [1, 2, 2],
-    [1, 1, 1, 1],
     [2, 1, 1, 1],
     [1, 2, 1, 1],
     [1, 1, 2, 1],
     [1, 1, 1, 2],
 ]
 
+# TODO: Can stack on top of walls with tiles and walls. Need to fix.
 def get_stack_moves_in_direction(moves, board, position, direction):
     """Adds all possible stack moves in the given direction to moves"""
     max_distance = 0
-    end_x = position[0]
-    end_y = position[1]
+    end_row = position[0]
+    end_col = position[1]
+
+    #Set ex and ey to last valid spot in that direction (edge of board, or as far as the stack can possibly go)
     while True:
-        end_x += direction.value[0]
-        end_y += direction.value[1]
-        if end_x < 0 or end_x >= BOARD_SIZE or end_y < 0 or end_y >= BOARD_SIZE:
+        end_col += direction.value[1]
+        end_row += direction.value[0]
+        if end_row < 0 or end_row >= BOARD_SIZE or end_col < 0 or end_col >= BOARD_SIZE or max_distance >= len(board[position[0]][position[1]]):
             break
         else:
             max_distance += 1
+    
+    #If you can move that far (moving 4 away is 1,1,1,1, and perms(1,1,1,2) e.g. sum(stack_remainders) = 5 )
     for stack_remainders in STACK_REMAINDERS:
-        if len(stack_remainders) > max_distance:
-            break
-        else:
-            moves.append(StackMove(board[position[1]][position[0]][-1], direction, stack_remainders))
+        if max_distance == 0:
+            return
+        if len(stack_remainders) > max_distance: # Trying to move further than possible
+            continue
+        if sum(stack_remainders) > len(board[position[0]][position[1]]): # Trying to move more pieces than possible
+            return # sum-asc Order of STACK_REMAINDERS means we can return not continue here
+
+        # We look down the path of our stack move to see if there are walls or capstones in the path
+        # We calculate which of our pieces we will be placing on the offending space for the given stack_remainder: the covering piece will be the -sum(stack_remainders)-pieces_already_placed
+        # We either allow the move to be appended, or fail
+        #TODO: We are still getting errors for some reason. Covering piece gets dq idx out of range.
+        num_pieces_already_placed = 0
+        size_of_stack = sum(stack_remainders)
+        for i in range(len(stack_remainders)): #Length of stack placement path is == len(stack_remainders)
+            target_space = board[position[0]+(i+1)*direction.value[0]][position[1]+(i+1)*direction.value[1]]
+            covering_piece = board[position[0]][position[1]][-1*size_of_stack +num_pieces_already_placed]
+            if len(target_space):
+                if target_space[-1].type != PieceType.TILE:
+                    if covering_piece.type != PieceType.CAPSTONE:
+                        return
+                    if target_space[-1].type == PieceType.CAPSTONE:
+                        return
+            num_pieces_already_placed += stack_remainders[i]
+        moves.append(StackMove(board[position[0]][position[1]][-1], direction, stack_remainders))
 
 #-----------------------------Terminal Test Code------------------------------#
 def terminal_test(board,last_to_move):
@@ -277,9 +338,11 @@ def terminal_test(board,last_to_move):
     if len(players_with_roads):
         # player who made the winning move gets the win, regardless of whether not enemy also had a road
         if players_with_roads.intersection({last_to_move}):
+            print("Road win: ",last_to_move)
             return(True, last_to_move)
         else:
             winner = players_with_roads.pop()
+            print("Road win: ",winner)
             return(True, winner)
 
     # Score tallies after flat win condition detected
@@ -295,6 +358,7 @@ def terminal_test(board,last_to_move):
                         else:
                             black += 1
         winner = PieceColor.WHITE if white > black else PieceColor.BLACK
+        print("Flat win: ", winner,f"|White: {white}   Black: {black}")
         return (True, winner)
     return (False, last_to_move)
 
@@ -449,7 +513,7 @@ def decode_state(num):
             p_type = PieceType.TILE
         else:
             p_type = PieceType.WALL
-        piece = Piece(PieceColor.WHITE if i < GAMESIZE/2  else PieceColor.BLACK,p_type, (row,col,dqidx))
+        piece = Piece(PieceColor.WHITE if i <= GAMESIZE/2  else PieceColor.BLACK,p_type, (row,col,dqidx))
         while len(board[row][col]) < dqidx+1:
             board[row][col].append(None)
         board[row][col][dqidx] = piece

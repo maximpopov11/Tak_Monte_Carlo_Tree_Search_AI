@@ -1,0 +1,1221 @@
+Winner: Black
+Moves: 50
+0|    |    |    |    |    |
+1|    |    |    |    |    |
+2|    |    |    |    |    |
+3|    |    |    |    |    |
+4|    |    |    |    | WW |
+
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    |    | BT |
+2|    |    |    |    |    |
+3|    |    |    |    |    |
+4|    |    |    |    | WW |
+[1,4]: deque([BT])
+[4,4]: deque([WW])
+BT (1, 4, 0)
+
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    |    | BT |
+2|    |    |    |    |    |
+3| WW |    |    |    |    |
+4|    |    |    |    | WW |
+[1,4]: deque([BT])
+[3,0]: deque([WW])
+[4,4]: deque([WW])
+WW (3, 0, 0)
+
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    | BW | BT |
+2|    |    |    |    |    |
+3| WW |    |    |    |    |
+4|    |    |    |    | WW |
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[3,0]: deque([WW])
+[4,4]: deque([WW])
+BW (1, 3, 0)
+
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    | BW | BT |
+2|    |    |    |    |    |
+3| WW |    | WW |    |    |
+4|    |    |    |    | WW |
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[4,4]: deque([WW])
+WW (3, 2, 0)
+
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    | BW | BT |
+2| BW |    |    |    |    |
+3| WW |    | WW |    |    |
+4|    |    |    |    | WW |
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[4,4]: deque([WW])
+BW (2, 0, 0)
+
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| WW |    |    | BW | BT |
+2| BW |    |    |    |    |
+3| WW |    | WW |    |    |
+4|    |    |    |    | WW |
+[1,0]: deque([WW])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[4,4]: deque([WW])
+WW (1, 0, 0)
+
+   0    1    2    3    4
+0|    |    |    |    | BW |
+1| WW |    |    | BW | BT |
+2| BW |    |    |    |    |
+3| WW |    | WW |    |    |
+4|    |    |    |    | WW |
+[0,4]: deque([BW])
+[1,0]: deque([WW])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[4,4]: deque([WW])
+BW (0, 4, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    | BW |
+1| WW |    |    | BW | BT |
+2| BW |    |    |    |    |
+3| WW |    | WW |    |    |
+4|    |    |    |    | WW |
+[0,0]: deque([WT])
+[0,4]: deque([BW])
+[1,0]: deque([WW])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[4,4]: deque([WW])
+WT (0, 0, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    | BW |
+1| WW |    |    | BW | BT |
+2| BW |    |    |    | BW |
+3| WW |    | WW |    |    |
+4|    |    |    |    | WW |
+[0,0]: deque([WT])
+[0,4]: deque([BW])
+[1,0]: deque([WW])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[4,4]: deque([WW])
+BW (2, 4, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    | BW |
+1| WW |    |    | BW | BT |
+2| BW |    |    |    | BW |
+3| WW |    | WW | WC |    |
+4|    |    |    |    | WW |
+[0,0]: deque([WT])
+[0,4]: deque([BW])
+[1,0]: deque([WW])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[3,3]: deque([WC])
+[4,4]: deque([WW])
+WC (3, 3, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    | BW |
+1| WW |    |    | BW | BT |
+2| BW |    | BT |    | BW |
+3| WW |    | WW | WC |    |
+4|    |    |    |    | WW |
+[0,0]: deque([WT])
+[0,4]: deque([BW])
+[1,0]: deque([WW])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[3,3]: deque([WC])
+[4,4]: deque([WW])
+BT (2, 2, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    | BW |
+1| WW |    | WT | BW | BT |
+2| BW |    | BT |    | BW |
+3| WW |    | WW | WC |    |
+4|    |    |    |    | WW |
+[0,0]: deque([WT])
+[0,4]: deque([BW])
+[1,0]: deque([WW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[3,3]: deque([WC])
+[4,4]: deque([WW])
+WT (1, 2, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW |    | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WW | WC |    |
+4|    |    |    |    | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[3,3]: deque([WC])
+[4,4]: deque([WW])
+Stack at [0, 4, 0], Direction.DOWN, Order: [1]
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW |    | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WW | WC |    |
+4|    |    |    | WW | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[3,3]: deque([WC])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+WW (4, 3, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW |    | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WW | WC |    |
+4|    | BT |    | WW | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW])
+[3,3]: deque([WC])
+[4,1]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+BT (4, 1, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW |    | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WC |    |    |
+4|    | BT |    | WW | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW, WC])
+[4,1]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+Stack at [3, 3, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW | BW | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WC |    |    |
+4|    | BT |    | WW | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW, WC])
+[4,1]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+BW (1, 1, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW | BW | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WC |    |    |
+4|    | BT | WW |    | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW, WC])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+Stack at [4, 3, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW | BW | WT | BW | BW |
+2| BW |    | BT |    | BW |
+3| WW |    | WC |    | BW |
+4|    | BT | WW |    | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WW, WC])
+[3,4]: deque([BW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+BW (3, 4, 0)
+
+   0    1    2    3    4
+0| WT |    |    |    |    |
+1| WW | BW | WC | BW | BW |
+2| BW |    | WW |    | BW |
+3| WW |    |    |    | BW |
+4|    | BT | WW |    | WW |
+[0,0]: deque([WT])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+Stack at [3, 2, 1], Direction.UP, Order: [1, 1]
+
+   0    1    2    3    4
+0| WT | BC |    |    |    |
+1| WW | BW | WC | BW | BW |
+2| BW |    | WW |    | BW |
+3| WW |    |    |    | BW |
+4|    | BT | WW |    | WW |
+[0,0]: deque([WT])
+[0,1]: deque([BC])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+BC (0, 1, 0)
+
+   0    1    2    3    4
+0| WT | BC |    |    |    |
+1| WW | BW | WC | BW | BW |
+2| BW |    | WW |    | BW |
+3| WW |    |    |    | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT])
+[0,1]: deque([BC])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,2]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+WW (4, 0, 0)
+
+   0    1    2    3    4
+0| WT | BC |    |    |    |
+1| WW | BW | WC | BW | BW |
+2|    | BW | WW |    | BW |
+3| WW |    |    |    | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT])
+[0,1]: deque([BC])
+[1,0]: deque([WW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+Stack at [2, 0, 0], Direction.RIGHT, Order: [1]
+
+   0    1    2    3    4
+0| WW | BC |    |    |    |
+1|    | BW | WC | BW | BW |
+2|    | BW | WW |    | BW |
+3| WW |    |    |    | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+Stack at [1, 0, 0], Direction.UP, Order: [1]
+
+   0    1    2    3    4
+0| WW | BC |    |    | BW |
+1|    | BW | WC | BW | BW |
+2|    | BW | WW |    | BW |
+3| WW |    |    |    | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+BW (0, 4, 0)
+
+   0    1    2    3    4
+0| WW | BC |    |    | BW |
+1|    | BW | WC | BW | BW |
+2|    | BW |    | WW | BW |
+3| WW |    |    |    | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,3]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+Stack at [2, 2, 1], Direction.RIGHT, Order: [2]
+
+   0    1    2    3    4
+0| WW | BC |    |    | BW |
+1|    | BW | WC | BW | BW |
+2|    | BW | BW | WW | BW |
+3| WW |    |    |    | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+BW (2, 2, 0)
+
+   0    1    2    3    4
+0| WW | BC |    |    | BW |
+1|    | BW | WC | BW | BW |
+2|    | BW | BW | WW | BW |
+3| WW |    |    | WT | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,3]: deque([WT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+WT (3, 3, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2|    | BW | BW | WW | BW |
+3| WW |    |    | WT | BW |
+4| WW | BT | WW |    | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([BT, WW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,3]: deque([WT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,4]: deque([WW])
+BT (0, 2, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2|    | BW | BW |    | BW |
+3| WW |    |    | BT | BW |
+4| WW | BT | WW | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+Stack at [2, 3, 1], Direction.DOWN, Order: [1, 1]
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW |    |    | BT | BW |
+4| WW | BT | WW | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT])
+[4,2]: deque([WW])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+BW (2, 0, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW |    |    | BT | BW |
+4| WW | WW |    | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+Stack at [4, 2, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW |    |    | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+BT (4, 2, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW |    | WT | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,2]: deque([WT])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+WT (3, 2, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW | BT | WT | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT])
+[3,2]: deque([WT])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+BT (3, 1, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT |    | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW | WT |    | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+Stack at [3, 2, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| WW | BC | BT | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW | WT |    | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+BW (0, 3, 0)
+
+   0    1    2    3    4
+0| WW | BC | BT | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW | WT | WW | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW])
+[0,1]: deque([BC])
+[0,2]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+WW (3, 2, 0)
+
+   0    1    2    3    4
+0| BC |    | BT | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW |    | BW |
+3| WW | WT | WW | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW, BC])
+[0,2]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+Stack at [0, 1, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| BC |    | BT | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW, BC])
+[0,2]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+WT (2, 3, 0)
+
+   0    1    2    3    4
+0| BC | BT |    | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | BT | BW |
+4| WW | WW | BT | WW | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,3]: deque([WW])
+[4,4]: deque([WW])
+Stack at [0, 2, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| BC | BT |    | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | WW | BW |
+4| WW | WW | BT |    | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([BT])
+[4,4]: deque([WW])
+Stack at [4, 3, 0], Direction.UP, Order: [1]
+
+   0    1    2    3    4
+0| BC | BT |    | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | WW | BW |
+4| WW | WW |    | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+Stack at [4, 2, 0], Direction.RIGHT, Order: [1]
+
+   0    1    2    3    4
+0| BC | BT |    | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+WW (4, 2, 0)
+
+   0    1    2    3    4
+0| BC | BT | BT | BW | BW |
+1|    | BW | WC | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,2]: deque([BT])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT, WC])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+BT (0, 2, 0)
+
+   0    1    2    3    4
+0| BC | BT | WC | BW | BW |
+1|    | BW | WT | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,2]: deque([BT, WC])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,1]: deque([BW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+Stack at [1, 2, 1], Direction.UP, Order: [1]
+
+   0    1    2    3    4
+0| BC | BT | WC | BW | BW |
+1| BW |    | WT | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WT | WW | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,2]: deque([BT, WC])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,0]: deque([BW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+Stack at [1, 1, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| BC | BT | WC | BW | BW |
+1| BW |    | WT | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WW |    | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,2]: deque([BT, WC])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,0]: deque([BW])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT, WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+Stack at [3, 2, 0], Direction.LEFT, Order: [1]
+
+   0    1    2    3    4
+0| BC | BT | WC | BW | BW |
+1| BW | BT | WT | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WW |    | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,2]: deque([BT, WC])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,0]: deque([BW])
+[1,1]: deque([BT])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT, WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+BT (1, 1, 0)
+
+   0    1    2    3    4
+0| BC | BT | WC | BW | BW |
+1| BW | BT | WT | BW | BW |
+2| BW | BW | BW | WT | BW |
+3| WW | WW | WW | WW | BW |
+4| WW | WW | WW | BT | WW |
+[0,0]: deque([WT, WW, BC])
+[0,1]: deque([BT])
+[0,2]: deque([BT, WC])
+[0,3]: deque([BW])
+[0,4]: deque([BW])
+[1,0]: deque([BW])
+[1,1]: deque([BT])
+[1,2]: deque([WT])
+[1,3]: deque([BW])
+[1,4]: deque([BT, BW])
+[2,0]: deque([BW])
+[2,1]: deque([BW])
+[2,2]: deque([BW])
+[2,3]: deque([WT])
+[2,4]: deque([BW])
+[3,0]: deque([WW])
+[3,1]: deque([BT, WT, WW])
+[3,2]: deque([WW])
+[3,3]: deque([WT, BT, WW])
+[3,4]: deque([BW])
+[4,0]: deque([WW])
+[4,1]: deque([BT, WW])
+[4,2]: deque([WW])
+[4,3]: deque([BT])
+[4,4]: deque([WW])
+WW (3, 2, 0)
+
