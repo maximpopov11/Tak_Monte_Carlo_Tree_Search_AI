@@ -182,7 +182,8 @@ def make_move(game, move):
     """Updates a game instance to reflect a real change in game,
     i.e. a non-simulation move."""
     game.board = result(game.board, move)
-    
+
+#TODO: Crush walls into tiles beneath capstones in stack moves
 def result(board, move):
     """Adjudicates the result of the game after the move being made."""
     moves = get_moves(board, move.player)
@@ -208,6 +209,10 @@ def result(board, move):
                 piece.position[2] = len(target_space)
                 piece.position[2] += move.stack_remainders[i] - j - 1
                 l.appendleft(piece)
+            if len(l) == 1 and l[-1].type == PieceType.CAPSTONE:
+                if len(target_space):  
+                    if target_space[-1].type == PieceType.WALL:
+                        target_space[-1].type = PieceType.TILE  
             target_space.extend(l)
             target_y -= move.direction.value[0]
             target_x -= move.direction.value[1]
@@ -338,11 +343,11 @@ def terminal_test(board,last_to_move):
     if len(players_with_roads):
         # player who made the winning move gets the win, regardless of whether not enemy also had a road
         if players_with_roads.intersection({last_to_move}):
-            print("Road win: ",last_to_move)
+            # print("Road win: ",last_to_move)
             return(True, last_to_move)
         else:
             winner = players_with_roads.pop()
-            print("Road win: ",winner)
+            # print("Road win: ",winner)
             return(True, winner)
 
     # Score tallies after flat win condition detected
@@ -358,7 +363,7 @@ def terminal_test(board,last_to_move):
                         else:
                             black += 1
         winner = PieceColor.WHITE if white > black else PieceColor.BLACK
-        print("Flat win: ", winner,f"|White: {white}   Black: {black}")
+        # print("Flat win: ", winner,f"|White: {white}   Black: {black}")
         return (True, winner)
     return (False, last_to_move)
 
