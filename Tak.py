@@ -33,6 +33,10 @@ class Piece:
             rep += "C"
         return rep
 
+    def __eq__(self, other):
+        """For testing purposes"""
+        return self.color == other.color and self.type == other.type and self.position == other.position
+
 
 class PlacementMove:
     """Tak piece placement move."""
@@ -95,18 +99,21 @@ class Tak:
         board = deepcopy(state.board)
         if isinstance(move, PlacementMove):
             board[move.position[0]][move.position[1]].append(move.piece)
+            pieces = self.white_pieces if state.to_move == PieceColor.WHITE else self.black_pieces
+            position = 1 if move.piece.type == PieceType.CAPSTONE else 0
+            pieces[position] -= 1
         elif isinstance(move, StackMove):
             initial_x = move.position[0]
             initial_y = move.position[1]
             initial_space = board[initial_y][initial_x]
-            target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction[0]
-            target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction[1]
+            target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction.value[0]
+            target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction.value[1]
             target_space = board[target_y][target_x]
             for i in range(len(move.stack_remainders) - 1, 0):
                 for j in range(move.stack_remainders[i]):
                     target_space.appendleft(initial_space.pop())
-                target_y -= move.direction[0]
-                target_x -= move.direction[1]
+                target_y -= move.direction.value[0]
+                target_x -= move.direction.value[1]
                 target_space = board[target_y][target_x]
         else:
             raise ValueError('Given move has a nonexistent type.')
@@ -224,7 +231,7 @@ class Tak:
             black = 0
             for row in self.board:
                 for space in row:
-                    if space[len(space) - 1].type == PieceType.TILE:
+                    if len(space) > 0 and space[len(space) - 1].type == PieceType.TILE:
                         if space[len(space) - 1].color == PieceColor.WHITE:
                             white += 1
                         else:
