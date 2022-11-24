@@ -5,10 +5,11 @@ from Constants import BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES
 from Tak import Tak, GameState, PieceColor, PieceType, Piece, PlacementMove, StackMove, Direction
 
 
-class run_tests(unittest.TestCase):
+class RunTests(unittest.TestCase):
     """Run all tests for Tak"""
 
     def __init__(self):
+        super().__init__()
         self.test_play_game()
         self.test_result()
         # TODO terminal_test
@@ -26,8 +27,8 @@ class run_tests(unittest.TestCase):
 
     def test_result(self):
         """Test result in a series of situations"""
-        initial = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES).initial
-        board = initial.board
+        tak = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES)
+        board = tak.initial.board
         for i in range(3):
             board[0][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, 0, 2 * i)))
             board[0][0].append(Piece(PieceColor.BLACK, PieceType.TILE, (0, 0, 2 * i + 1)))
@@ -35,7 +36,7 @@ class run_tests(unittest.TestCase):
         piece1 = Piece(PieceColor.WHITE, PieceType.TILE, (0, 1, 0))
         move1 = PlacementMove((0, 1), piece1)
         board1 = deepcopy(board)
-        board1[1][0].append(piece1)
+        board1[0][1].append(piece1)
         # long stack move
         move2 = StackMove((0, 0), Direction.RIGHT, [1, 1, 1, 1])
         board2 = deepcopy(board)
@@ -46,16 +47,23 @@ class run_tests(unittest.TestCase):
         # short stack move
         move3 = StackMove((0, 0), Direction.RIGHT, [3, 2])
         board3 = deepcopy(board)
-        board2[0][2].appendleft(board2[0][0].pop())
-        board2[0][2].appendleft(board2[0][0].pop())
-        board2[0][1].appendleft(board2[0][0].pop())
-        board2[0][1].appendleft(board2[0][0].pop())
-        board2[0][1].appendleft(board2[0][0].pop())
+        board3[0][2].appendleft(board3[0][0].pop())
+        board3[0][2].appendleft(board3[0][0].pop())
+        board3[0][1].appendleft(board3[0][0].pop())
+        board3[0][1].appendleft(board3[0][0].pop())
+        board3[0][1].appendleft(board3[0][0].pop())
         moves = [move1, move2, move3]
         state = GameState(to_move=PieceColor.WHITE, board=board, moves=moves)
-        self.assertEqual(board1, Tak.result(initial, state, move1).board)
-        self.assertEqual(board2, Tak.result(initial, state, move2).board)
-        self.assertEqual(board3, Tak.result(initial, state, move3).board)
+        self.__assert_board_equality(board1, tak.result(state, move1).board)
+        self.__assert_board_equality(board2, tak.result(state, move2).board)
+        self.__assert_board_equality(board3, tak.result(state, move3).board)
+
+    def __assert_board_equality(self, expected_board, actual_board):
+        """Assert that the expected and actual boards contain the same pieces"""
+        for y in range(len(expected_board)):
+            for x in range(len(expected_board[y])):
+                for i in range(len(expected_board[y][x])):
+                    self.assertEqual(expected_board[y][x][i], actual_board[y][x][i])
 
 
-run_tests()
+RunTests()

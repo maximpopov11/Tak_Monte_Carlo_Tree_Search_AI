@@ -33,6 +33,10 @@ class Piece:
             rep += "C"
         return rep
 
+    def __eq__(self, other):
+        """For testing purposes"""
+        return self.color == other.color and self.type == other.type and self.position == other.position
+
 
 class PlacementMove:
     """Tak piece placement move."""
@@ -102,14 +106,14 @@ class Tak:
             initial_x = move.position[0]
             initial_y = move.position[1]
             initial_space = board[initial_y][initial_x]
-            target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction[0]
-            target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction[1]
+            target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction.value[0]
+            target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction.value[1]
             target_space = board[target_y][target_x]
             for i in range(len(move.stack_remainders) - 1, 0):
                 for j in range(move.stack_remainders[i]):
                     target_space.appendleft(initial_space.pop())
-                target_y -= move.direction[0]
-                target_x -= move.direction[1]
+                target_y -= move.direction.value[0]
+                target_x -= move.direction.value[1]
                 target_space = board[target_y][target_x]
         else:
             raise ValueError('Given move has a nonexistent type.')
