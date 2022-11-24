@@ -12,7 +12,6 @@ class RunTests(unittest.TestCase):
         super().__init__()
         self.test_play_game()
         self.test_result()
-        # TODO terminal_test
         # TODO: test stack moving onto wall crushes wall
         # TODO: test stack moving onto capstone illegal
 
@@ -57,6 +56,24 @@ class RunTests(unittest.TestCase):
         self.__assert_board_equality(board1, tak.result(state, move1).board)
         self.__assert_board_equality(board2, tak.result(state, move2).board)
         self.__assert_board_equality(board3, tak.result(state, move3).board)
+
+    def test_terminal(self):
+        board = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES).initial.board
+        board1 = deepcopy(board)
+        count1 = 0
+        for row in board1:
+            for space in row:
+                color = PieceColor.WHITE if count1 % 2 == 0 else PieceColor.BLACK
+                piece = Piece(color, PieceType.TILE, None)
+                space.append(piece)
+        tak1 = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES, board1)
+        self.assertTrue(tak1.terminal_test())
+
+        board2 = deepcopy(board)
+        for space in board2[0]:
+            space.append(Piece(PieceColor.WHITE, PieceType.TILE))
+        tak2 = Tak(BOARD_LENGTH, NUM_STONES, NUM_CAPSTONES, board2)
+        self.assertTrue(tak2.terminal_test())
 
     def __assert_board_equality(self, expected_board, actual_board):
         """Assert that the expected and actual boards contain the same pieces"""
