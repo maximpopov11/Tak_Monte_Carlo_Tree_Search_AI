@@ -1,4 +1,4 @@
-from Tak import PieceColor, PlacementMove
+from Tak import *
 
 
 class User:

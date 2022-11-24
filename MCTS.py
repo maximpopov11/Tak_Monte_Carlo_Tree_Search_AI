@@ -11,7 +11,7 @@ class MCTSNode:
         self.parent = parent
         self.parent_action = parent_action
         self.children = []
-        self._visit_count = 0
+        self._number_of_visits = 0
         self._results = defaultdict(int)
         self._results[1] = 0
         self._results[-1] = 0
@@ -99,9 +99,12 @@ class MCTSNode:
         return self.best_child(c_param=0.1)
 
 def main():
-    initial_state = [1]*GAMESIZE
+    initial_state = bits_to_int([1]*GAMESIZE)
     root = MCTSNode(state_int=initial_state)
     selected_node = root.best_action()
     action = selected_node.parent_action
-    print(action)
+    print(action.piece, action.position)
     return 
+
+if __name__ == "__main__":
+    main()

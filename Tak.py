@@ -38,6 +38,8 @@ CAPSTONE_SIZE = PIECE_SIZE - 1      #No. of bits used in binary encoding of a ca
 GAMESIZE = 2 * (PIECE_SIZE*NUM_PIECES + CAPSTONE_SIZE*NUM_CAPSTONES)      #No. of bits used in binary encoding of game board
 
 
+GameState = namedtuple('GameState','to_move, moves, board')
+
 class PieceColor(Enum):
     """Enum enables easy access to standardized piece colors."""
     BLACK, WHITE = range(2)
@@ -88,6 +90,7 @@ class PlacementMove:
 
 class Direction(Enum):
     """Direction for stack movement."""
+    value: tuple[int,int]
     UP = (0, -1)
     DOWN = (0, 1)
     LEFT = (-1, 0)
@@ -118,13 +121,12 @@ def player_still_has_pieces(board, player):
     index corresponds to whether or not a player still has
     wall/tile pieces left to place, second index to whether they
     still have capstones for the given state_int"""
-    
     state_int = encode_state(board)
     binary = int_to_bits(state_int, GAMESIZE)
     
     if player == PieceColor.WHITE:
-        last_piece = binary[len(binary)/2 - NUM_CAPSTONES * CAPSTONE_SIZE - PIECE_SIZE: len(binary)/2 - NUM_CAPSTONES * CAPSTONE_SIZE]
-        last_cap = binary[len(binary)/2 - CAPSTONE_SIZE: len(binary)/2]
+        last_piece = binary[int(len(binary)/2 - NUM_CAPSTONES * CAPSTONE_SIZE - PIECE_SIZE): int(len(binary)/2 - NUM_CAPSTONES * CAPSTONE_SIZE)]
+        last_cap = binary[int(len(binary)/2 - CAPSTONE_SIZE): int(len(binary)/2)]
         return [last_piece == [1] * PIECE_SIZE, last_cap == [1] * CAPSTONE_SIZE]
     else:
         last_piece = binary[len(binary) - NUM_CAPSTONES * CAPSTONE_SIZE - PIECE_SIZE: len(binary) - NUM_CAPSTONES * CAPSTONE_SIZE]    
@@ -133,24 +135,30 @@ def player_still_has_pieces(board, player):
 
 
 #------------------------------------Moves------------------------------------#
-def play_game(self, white_agent, black_agent):
+def play_game(board, white_agent, black_agent):
         """Plays the game by querying the given agents for moves and updating the board respectively"""
-        state = self.initial
+    
         agent = white_agent
         while True:
-            move = agent.query(state)
-            state = self.result(state, move)
+            move = agent.query(board)
+            board = result(board, move)
             agent = white_agent if agent == black_agent else black_agent
-            if self.terminal_test():
+            if terminal_test(board)[0]:
                 break
 
-
+def make_move(board, move):
+    """Updates the GameState tuple to reflect a real change in game,
+    i.e. a non-simulation move."""
+    GameState.board = result(board, move)
+    GameState.to_move = PieceColor.WHITE if GameState.to_move == PieceColor.BLACK else PieceColor.BLACK
+    GameState.moves = get_moves(GameState.board, GameState.to_move)
 
 def result(board, move):
     """Adjudicates the result of the game after the move being made."""
     moves = get_moves(board, move.player)
-    if move not in moves:
-        raise ValueError('Given move is not in state.moves.')
+    # TODO: Issue with below conditional, not recognizing move in moves (1st move, wc (4,4,0) in moves[74], conditional returns false)
+    # if move not in moves:
+    #     raise ValueError('Given move is not in state.moves.')
     board_c = deepcopy(board)
     if isinstance(move, PlacementMove):
         board_c[move.position[0]][move.position[1]].append(move.piece)
@@ -158,16 +166,16 @@ def result(board, move):
         initial_x = move.position[0]
         initial_y = move.position[1]
         initial_space = board_c[initial_y][initial_x]
-        target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction[0]
-        target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction[1]
+        target_y = initial_y + (len(move.stack_remainders) - 1) * move.direction.value[0]
+        target_x = initial_x + (len(move.stack_remainders) - 1) * move.direction.value[1]
         target_space = board_c[target_y][target_x]
         for i in range(len(move.stack_remainders) - 1, 0):
             l = deque()
             for j in range(move.stack_remainders[i]):
                 l.appendleft(initial_space.pop())
             target_space.extend(l)
-            target_y -= move.direction[0]
-            target_x -= move.direction[1]
+            target_y -= move.direction.value[0]
+            target_x -= move.direction.value[1]
             target_space = board_c[target_y][target_x]
     else:
         raise ValueError('Given move has a nonexistent type.')
@@ -196,56 +204,56 @@ def get_moves(board, color):
                 get_stack_moves_in_direction(moves, board, (x, y), Direction.RIGHT)
     return moves
 
-    STACK_REMAINDERS = [
-        [1],
-        [2],
-        [3],
-        [4],
-        [5],
-        [1, 1],
-        [2, 1],
-        [1, 2],
-        [3, 1],
-        [2, 2],
-        [1, 3],
-        [4, 1],
-        [3, 2],
-        [2, 3],
-        [1, 4],
-        [1, 1, 1],
-        [2, 1, 1],
-        [1, 2, 1],
-        [1, 1, 2],
-        [3, 1, 1],
-        [1, 3, 1],
-        [1, 1, 3],
-        [2, 2, 1],
-        [2, 1, 2],
-        [1, 2, 2],
-        [1, 1, 1, 1],
-        [2, 1, 1, 1],
-        [1, 2, 1, 1],
-        [1, 1, 2, 1],
-        [1, 1, 1, 2],
-    ]
+STACK_REMAINDERS = [
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [1, 1],
+    [2, 1],
+    [1, 2],
+    [3, 1],
+    [2, 2],
+    [1, 3],
+    [4, 1],
+    [3, 2],
+    [2, 3],
+    [1, 4],
+    [1, 1, 1],
+    [2, 1, 1],
+    [1, 2, 1],
+    [1, 1, 2],
+    [3, 1, 1],
+    [1, 3, 1],
+    [1, 1, 3],
+    [2, 2, 1],
+    [2, 1, 2],
+    [1, 2, 2],
+    [1, 1, 1, 1],
+    [2, 1, 1, 1],
+    [1, 2, 1, 1],
+    [1, 1, 2, 1],
+    [1, 1, 1, 2],
+]
 
-    def __get_stack_moves_in_direction(self, moves, position, direction):
-        """Adds all possible stack moves in the given direction to moves"""
-        max_distance = 0
-        end_x = position[0]
-        end_y = position[1]
-        while True:
-            end_x += direction[0]
-            end_y += direction[1]
-            if end_x < 0 or end_x >= self.board_length or end_y < 0 or end_y >= self.board_length:
-                break
-            else:
-                max_distance += 1
-        for stack_remainders in self.STACK_REMAINDERS:
-            if len(stack_remainders) > max_distance:
-                break
-            else:
-                moves.append(StackMove(position, direction, stack_remainders))
+def get_stack_moves_in_direction(moves, board, position, direction):
+    """Adds all possible stack moves in the given direction to moves"""
+    max_distance = 0
+    end_x = position[0]
+    end_y = position[1]
+    while True:
+        end_x += direction.value[0]
+        end_y += direction.value[1]
+        if end_x < 0 or end_x >= BOARD_SIZE or end_y < 0 or end_y >= BOARD_SIZE:
+            break
+        else:
+            max_distance += 1
+    for stack_remainders in STACK_REMAINDERS:
+        if len(stack_remainders) > max_distance:
+            break
+        else:
+            moves.append(StackMove(board[position[1]][position[0]][-1], direction, stack_remainders))
 
 #-----------------------------Terminal Test Code------------------------------#
 def terminal_test(board,last_to_move):
@@ -268,31 +276,27 @@ def terminal_test(board,last_to_move):
                             players_with_roads.add(space[-1].color)
     if len(players_with_roads):
         # player who made the winning move gets the win, regardless of whether not enemy also had a road
-        if players_with_roads.intersection(last_to_move):
-            print(f"Winner: {last_to_move}")
+        if players_with_roads.intersection({last_to_move}):
             return(True, last_to_move)
         else:
             winner = players_with_roads.pop()
-            print(f"Winner: {winner}")
             return(True, winner)
 
     # Score tallies after flat win condition detected
     if fewest_pieces == 1 or all_pieces_placed:
-        print("Either the board is covered or a player is out of pieces! Tallying scores...")
         white = 0
         black = 0
         for row in board:
             for space in row:
-                if space[-1].type == PieceType.TILE:
-                    if space[-1].color == PieceColor.WHITE:
-                        white += 1
-                    else:
-                        black += 1
-        print(f"White: {white} | Black: {black}")
+                if len(space):
+                    if space[-1].type == PieceType.TILE:
+                        if space[-1].color == PieceColor.WHITE:
+                            white += 1
+                        else:
+                            black += 1
         winner = PieceColor.WHITE if white > black else PieceColor.BLACK
-        print(f"Winner: {winner}")
         return (True, winner)
-    return False
+    return (False, last_to_move)
 
 def find_roads(board,piece):
     """Starting point of a recursive DFS looking for roads across the 2D board array.
@@ -346,10 +350,10 @@ def find_roads_rec(board,i, j, color, row_start, col_start, seen):
     seen.add((piece.position[0], piece.position[1]))  # Seen set passed down to avoid visiting ancestors
     for rowDir in row_dirs:
         if rowDir in range(BOARD_SIZE) and (rowDir, col) not in seen:
-            return find_roads_rec(rowDir, col, piece.color, row_start, col_start, seen)
+            return find_roads_rec(board,rowDir, col, piece.color, row_start, col_start, seen)
     for colDir in col_dirs:
         if colDir in range(BOARD_SIZE) and (row, colDir) not in seen:
-            return find_roads_rec(row, colDir, piece.color, row_start, col_start, seen)
+            return find_roads_rec(board,row, colDir, piece.color, row_start, col_start, seen)
 
 #----------------------State Encoding/Decoding Functions----------------------#
 def encode_state(board):
@@ -426,7 +430,7 @@ def decode_state(num):
     i = 0 
     capstone = False
     while i < GAMESIZE:  
-        if i in range(GAMESIZE / 2 - NUM_CAPSTONES * CAPSTONE_SIZE,GAMESIZE/2) or i in range(GAMESIZE - NUM_CAPSTONES*CAPSTONE_SIZE,GAMESIZE):
+        if i in range(int(GAMESIZE / 2 - NUM_CAPSTONES * CAPSTONE_SIZE),int(GAMESIZE/2)) or i in range(GAMESIZE - NUM_CAPSTONES*CAPSTONE_SIZE,GAMESIZE):
             piece = game_binary[i:i+CAPSTONE_SIZE]
             capstone = True
             i -= 1
@@ -440,12 +444,12 @@ def decode_state(num):
         col = bits_to_int(piece[ROWBITS:ROWBITS+COLBITS])
         dqidx = bits_to_int(piece[ROWBITS+COLBITS:ROWBITS+COLBITS+ZBITS])
         if capstone:
-            type = PieceType.CAPSTONE
+            p_type = PieceType.CAPSTONE
         elif piece[-1]:
-            type = PieceType.TILE
+            p_type = PieceType.TILE
         else:
-            type = PieceType.WALL
-        piece = Piece(PieceColor.WHITE if i < GAMESIZE/2  else PieceColor.BLACK,type, (row,col,dqidx))
+            p_type = PieceType.WALL
+        piece = Piece(PieceColor.WHITE if i < GAMESIZE/2  else PieceColor.BLACK,p_type, (row,col,dqidx))
         while len(board[row][col]) < dqidx+1:
             board[row][col].append(None)
         board[row][col][dqidx] = piece
