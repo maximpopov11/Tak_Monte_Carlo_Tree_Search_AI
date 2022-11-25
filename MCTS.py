@@ -5,15 +5,7 @@ from collections import defaultdict
 from Tak import *
 import logging
 
-logger = logging.getLogger(__name__)  
 
-file_handler = logging.FileHandler('sample.log')
-formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(message)s')
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
-
-logger.info('Hello World')
 class MCTSNode:
     def __init__(self, state_int, parent = None, parent_action = None, agent = PieceColor.WHITE, turn = PieceColor.WHITE):
         self.state_int = state_int
@@ -60,16 +52,17 @@ class MCTSNode:
             self.children.append(child_node)
             return child_node
         except IndexError:
-            logger.debug(f"""
-                Board:\n{top_board_string(board)}\n
-                {stacks_string(board)}\n
-                Expanding Action: {action}\n
-                Self:\n
-                \tAgent:\t{self.agent_color}\n
-                \tTurn:\t{self.turn}\n
-                \tBoard:\t{top_board_string(decode_state(self.state_int))}\n
-                \t\t\t{stacks_string(decode_state(self.state_int))}
-                \tUntried Actions:{self._untried_actions}""")
+            f = open("Err.txt","w")
+            f.write(f"""Board:\n{top_board_string(board)}
+{stacks_string(board)}
+Expanding Action: {action}
+Self:
+\Agent:\t{self.agent_color}
+Turn:\t{self.turn}
+Board:{top_board_string(decode_state(self.state_int))}
+{stacks_string(decode_state(self.state_int))}
+Untried Actions:{self._untried_actions}""")
+            f.close()
             exit()
 
     def make_node_root(self,color):
@@ -181,9 +174,6 @@ def main():
         black_root = white_next
         black_root.make_node_root(PieceColor.BLACK)
 
-
-    print("\nSelected Action: ", action.position, action.piece,"\nWins",selected_node._results[1], " out of ", selected_node._results[1]+selected_node._results[-1], " games")
-    print("\nRoot saw ", root.agent_color, " win ", root._results[1], " out of ", root._results[1] + root._results[-1]," games")
     return 
 
 if __name__ == "__main__":
