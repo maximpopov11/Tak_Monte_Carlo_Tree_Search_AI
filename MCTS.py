@@ -60,8 +60,9 @@ class MCTSNode:
             self.children.append(child_node)
             return child_node
         except IndexError:
-            logger.debug(f"""
-                Board:\n{top_board_string(board)}\n
+            f = open("Err.txt", "w")
+            f.write(f"""
+                ukdddddddddfuju.Board:\n{top_board_string(board)}\n
                 {stacks_string(board)}\n
                 Expanding Action: {action}\n
                 Self:\n
@@ -70,6 +71,7 @@ class MCTSNode:
                 \tBoard:\t{top_board_string(decode_state(self.state_int))}\n
                 \t\t\t{stacks_string(decode_state(self.state_int))}
                 \tUntried Actions:{self._untried_actions}""")
+            f.close()
             exit()
 
     def make_node_root(self,color):
@@ -173,6 +175,7 @@ def main():
         white_root.make_node_root(PieceColor.WHITE)
         white_next = white_root.best_action()
         white_action = white_next.parent_action
+
         print(f"{white_root.agent_color} won {white_root._results[1]} out of {white_root._number_of_visits} games")
         print(f"{white_action} won {white_next._results[1]} out of {white_next._number_of_visits} games")
         make_move(game,white_action)
@@ -181,9 +184,6 @@ def main():
         black_root = white_next
         black_root.make_node_root(PieceColor.BLACK)
 
-
-    print("\nSelected Action: ", action.position, action.piece,"\nWins",selected_node._results[1], " out of ", selected_node._results[1]+selected_node._results[-1], " games")
-    print("\nRoot saw ", root.agent_color, " win ", root._results[1], " out of ", root._results[1] + root._results[-1]," games")
     return 
 
 if __name__ == "__main__":

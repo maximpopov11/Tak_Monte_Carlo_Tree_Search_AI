@@ -149,5 +149,13 @@ logger.addHandler(file_handler)
 # for move in moves:
 #     print(move)
 
+def test(t):
+    t.pop()
+
 t = deque()
-t.pop()
+try:
+    test(t)
+except IndexError:
+    f = open('test.txt',"w")
+    f.write(f"""Error found! {t}""")
+    f.close()
