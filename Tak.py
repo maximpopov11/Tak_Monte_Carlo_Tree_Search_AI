@@ -93,7 +93,7 @@ class PlacementMove:
 
 class Direction(Enum):
     """Direction for stack movement."""
-    value: tuple[int,int]
+    #value: tuple[int,int]
     UP = (-1,0)
     DOWN = (1,0)
     LEFT = (0,-1)
