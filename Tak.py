@@ -153,17 +153,23 @@ def player_still_has_pieces(board, player):
     index corresponds to whether or not a player still has
     wall/tile pieces left to place, second index to whether they
     still have capstones for the given state_int"""
-    state_int = encode_state(board)
-    binary = int_to_bits(state_int, GAMESIZE)
+    capstone = False
+    pieces = False
+    for i in range(BOARD_SIZE):
+        for j in range(BOARD_SIZE):
+            if len(board[i][j]):
+                for piece in board[i][j]:
+                    if piece.color == player:
+                        if piece.type == PieceType.CAPSTONE:
+                            capstone = True
+                        else:
+                            pieces = True
+                    if capstone and pieces:
+                        return [pieces, capstone]
+    return [pieces, capstone]
+                        
+                    
     
-    if player == PieceColor.WHITE:
-        last_piece = binary[int(len(binary)/2 - NUM_CAPSTONES * CAPSTONE_SIZE - PIECE_SIZE): int(len(binary)/2 - NUM_CAPSTONES * CAPSTONE_SIZE)]
-        last_cap = binary[int(len(binary)/2 - CAPSTONE_SIZE): int(len(binary)/2)]
-        return [last_piece == [1] * PIECE_SIZE, last_cap == [1] * CAPSTONE_SIZE]
-    else:
-        last_piece = binary[len(binary) - NUM_CAPSTONES * CAPSTONE_SIZE - PIECE_SIZE: len(binary) - NUM_CAPSTONES * CAPSTONE_SIZE]    
-        last_cap = binary[len(binary) - CAPSTONE_SIZE: len(binary)]
-        return [last_piece == [1] * PIECE_SIZE, last_cap == [1] * CAPSTONE_SIZE]
 
 
 #------------------------------------Moves------------------------------------#
