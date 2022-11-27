@@ -129,13 +129,13 @@ Untried Actions:{self._untried_actions}""")
         return current_node
 
     def best_action(self):
-        sim_goal = 10
+        sim_goal = 100
         sim_total = 0
         board = decode_state(self.state_int)
         t_start = time()
         t_curr = t_start
         # t_curr - t_start < 30 and
-        while  sim_total <= sim_goal :
+        while  sim_total <= sim_goal and t_curr - t_start < 10:
             # f = open(f"simulation{i+1}.txt","w")
             # print("Simulation No.:",sim_total+1,end = ' ')
             v = self._tree_policy(board)

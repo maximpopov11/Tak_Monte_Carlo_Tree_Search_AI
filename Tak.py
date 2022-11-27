@@ -339,6 +339,7 @@ def terminal_test(board, last_to_move):
     black_flat_win_tally = 0
     players_with_roads = set()
     fewest_pieces = 1
+    enemy_road_created = False
     # Checks for roads and board coverage
     for j, row in enumerate(board):
         for i, space in enumerate(row):
@@ -421,18 +422,20 @@ def find_roads_rec(board, i, j, color, row_start, col_start, seen):
     down = up + 2
     row_dirs = [up, down]
     col_dirs = [left, right]
+    rowSearch = False
+    colSearch = False
     if row == BOARD_SIZE - 1 and row_start:  # Piece, belongs to same player, and on opposite edge of start
         return True
-    elif col == BOARD_SIZE - 1 and col_start:  # same as above
+    if col == BOARD_SIZE - 1 and col_start:  # same as above
         return True
     seen.add((piece.position[0], piece.position[1]))  # Seen set passed down to avoid visiting ancestors
     for rowDir in row_dirs:
         if rowDir in range(BOARD_SIZE) and (rowDir, col) not in seen:
-            return find_roads_rec(board, rowDir, col, piece.color, row_start, col_start, seen)
+            rowSearch = find_roads_rec(board, rowDir, col, piece.color, row_start, col_start, seen)
     for colDir in col_dirs:
         if colDir in range(BOARD_SIZE) and (row, colDir) not in seen:
-            return find_roads_rec(board, row, colDir, piece.color, row_start, col_start, seen)
-
+            colSearch = find_roads_rec(board, row, colDir, piece.color, row_start, col_start, seen)
+    return rowSearch or colSearch
 
 # ----------------------State Encoding/Decoding Functions----------------------#
 def encode_state(board):

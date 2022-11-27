@@ -4,13 +4,6 @@ from collections import deque
 import math as m
 from MCTS import *
 import logging
-logger = logging.getLogger(__name__)  
-
-file_handler = logging.FileHandler('sample.log')
-logger.addHandler(file_handler)
-
-
-
 
 # #Tests Stack movement
 # board[4][4].append(Piece(PieceColor.WHITE, PieceType.CAPSTONE,(4,4,0)))
@@ -149,5 +142,9 @@ logger.addHandler(file_handler)
 # for move in moves:
 #     print(move)
 
-t = deque()
-t.pop()
+t = blank_board()
+for i in range(len(t)):
+    for j in range(len(t)):
+        t[0][j].append(Piece(Piece.WHITE, PieceType.TILE, (0,j,0)))
+print(top_board_string(board = t))
+print(terminal_test(t,PieceColor.WHITE))
