@@ -172,11 +172,35 @@ def test_carry_limit(board):
         board[0][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, 0, i)))
 
 
+def test_flat_win_piece_type(board):
+    """Manual testing for flat win:
+    - board fill (place T (4,4)); capstone and wall don't count: black wins"""
+    color = PieceColor.WHITE
+    for row in range(BOARD_SIZE):
+        for col in range(BOARD_SIZE):
+            board[row][col].append(Piece(color, PieceType.TILE, (row, col, 0)))
+            color = PieceColor.WHITE if color == PieceColor.BLACK else PieceColor.BLACK
+    board[0][0].append(Piece(PieceColor.WHITE, PieceType.CAPSTONE, (0, 0, 1)))
+    board[0][2].append(Piece(PieceColor.WHITE, PieceType.WALL, (0, 2, 1)))
+    board[4][4].pop()
+
+
+
+def test_flat_win_tie(board):
+    """Manual testing for flat win:
+    - pieces used (place C (1, 0)); tie: Black wins"""
+    for i in range(NUM_PIECES):
+        board[0][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, 0, i)))
+        board[0][1].append(Piece(PieceColor.BLACK, PieceType.TILE, (0, 0, i)))
+    board[1][1].append(Piece(PieceColor.BLACK, PieceType.CAPSTONE, (0, 0, 0)))
+
+
 def main():
     board = blank_board()
-    test_carry_limit(board)
+    # test_carry_limit(board)
+    # test_flat_win_piece_type(board)
+    # test_flat_win_tie(board)
     play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
-    # TODO: flat win
     # TODO: no road with walls
     # TODO: yes road with capstone
     # TODO: dragon clause

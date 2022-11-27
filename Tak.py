@@ -342,7 +342,7 @@ def terminal_test(board, last_to_move):
     a tuple (terminal, winner), with terminal = True or False
     depending on if the board represents a terminal state, and
     winner = PieceColor of last_to_move (default) or the winning player."""
-    all_pieces_placed = not (sum(player_still_has_pieces(board, PieceColor.BLACK))) or not (
+    all_pieces_placed = not (sum(player_still_has_pieces(board, PieceColor.WHITE))) or not (
         sum(player_still_has_pieces(board, PieceColor.BLACK)))
     players_with_roads = set()
     fewest_pieces = 1
