@@ -161,9 +161,29 @@ class User:
         return None
 
 
+def test_carry_limit(board):
+    """Manual testing for legal carrying limit:
+    - legal close [5]
+    - legal far [1, 1, 1, 2]
+    - illegal carry close [6]
+    - illegal carry far [1, 1, 1, 3]
+    - illegal space [1, 1, 1, 1, 1]"""
+    for i in range(BOARD_SIZE + 1):
+        board[0][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, 0, i)))
+
+
 def main():
     board = blank_board()
+    test_carry_limit(board)
     play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
+    # TODO: flat win
+    # TODO: no road with walls
+    # TODO: yes road with capstone
+    # TODO: dragon clause
+    # TODO: no stack move over wall or capstone
+    # TODO: stack move capstone flatten wall
+    # TODO: opening turn opposite color play TILE (not wall/capstone)
+    # TODO: play out a full game vs self
 
 
 if __name__ == "__main__":
