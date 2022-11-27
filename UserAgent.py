@@ -1,31 +1,25 @@
 from Tak import *
 
 
+def print_state(board):
+    print(top_board_string(board))
+    print(stacks_string(board))
+
+
 class User:
 
-    def __init__(self):
-        pass
+    def __init__(self, color):
+        self.color = color
 
-    def query(self, state):
-        self.print_state(state)
-        return self.get_move(state)
+    def query(self, board):
+        print_state(board)
+        return self.get_move(board)
 
-    def print_state(self, state):
-        # TODO: implement a nicer user-friendly board view
-        for row in state.board:
-            for space in row:
-                symbol = '_'
-                if len(space) > 0:
-                    color = space[-1].color
-                    symbol = 'W' if color == PieceColor.WHITE else 'B'
-                print(symbol, end=' ')
-            print()
-        pass
-
-    def get_move(self, state):
+    def get_move(self, board):
         # TODO: implement a nicer user-friendly move selection
+        moves = get_moves(board, self.color)
         index = 0
-        for move in state.moves:
+        for move in moves:
             type = "placement move" if isinstance(move, PlacementMove) else "stack move"
             x = move.position[0]
             y = move.position[1]
@@ -35,10 +29,19 @@ class User:
             user_input = input('Enter the number correlating to the move you would like to make: ')
             try:
                 index = int(user_input)
-                if 0 <= index <= len(state.moves) - 1:
+                if 0 <= index <= len(moves) - 1:
                     break
                 else:
                     print("Please enter a valid number!")
             except:
                 print("Please enter a number!")
-        return state.moves[index]
+        return moves[index]
+
+
+def main():
+    board = blank_board()
+    play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
+
+
+if __name__ == "__main__":
+    main()
