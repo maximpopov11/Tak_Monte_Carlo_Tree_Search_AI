@@ -13,29 +13,95 @@ class User:
 
     def query(self, board):
         print_state(board)
-        return self.get_move(board)
-
-    def get_move(self, board):
-        # TODO: implement a nicer user-friendly move selection
         moves = get_moves(board, self.color)
-        index = 0
-        for move in moves:
-            type = "placement move" if isinstance(move, PlacementMove) else "stack move"
-            x = move.position[0]
-            y = move.position[1]
-            print(index, type, ' at (', x, ',', y, ')')
-            index += 1
+        print('Follow the prompts to enter a move or restart the process (X).')
         while True:
-            user_input = input('Enter the number correlating to the move you would like to make: ')
-            try:
-                index = int(user_input)
-                if 0 <= index <= len(moves) - 1:
-                    break
+            move_type = self.__get_move_type()
+            if move_type is None:
+                continue
+            row = self.__get_row()
+            if row is None:
+                continue
+            column = self.__get_column()
+            position = (row, column)
+            if column is None:
+                continue
+            if move_type == PlacementMove:
+                piece_type = self.__get_piece_type()
+                if piece_type is None:
+                    continue
+                move = self.__get_placement_move(position, piece_type, moves)
+                if move is not None:
+                    return move
                 else:
-                    print("Please enter a valid number!")
-            except:
-                print("Please enter a number!")
-        return moves[index]
+                    print('Placement move  of', piece_type.name, 'at', position, 'does not exist.')
+                    continue
+            elif move_type == StackMove:
+                #TODO: implement stack move
+                pass
+            else:
+                raise ValueError('__get_move_type() returned an invalid move type.')
+
+    def __get_move_type(self):
+        while True:
+            command = input('Would you like to make a placement or stack move? (P/S): ')
+            if command == 'X':
+                return None
+            elif command == 'P':
+                return PlacementMove
+            elif command == 'S':
+                return StackMove
+            else:
+                print('Entered:', command, 'Please enter a valid input.')
+
+    def __get_row(self):
+        while True:
+            command = input('Enter the number corresponding to the row you would like you make your move in: ')
+            if command == 'X':
+                return None
+            else:
+                try:
+                    if 0 <= int(command) < BOARD_SIZE:
+                        return int(command)
+                    else:
+                        print('Entered:', command, 'Please enter a valid input.')
+                except:
+                    print('Entered:', command, 'Please enter a valid input.')
+
+    def __get_column(self):
+        while True:
+            command = input('Enter the number corresponding to the column you would like you make your move in: ')
+            if command == 'X':
+                return None
+            else:
+                try:
+                    if 0 <= int(command) < BOARD_SIZE:
+                        return int(command)
+                    else:
+                        print('Entered:', command, 'Please enter a valid input.')
+                except:
+                    print('Entered:', command, 'Please enter a valid input.')
+
+    def __get_piece_type(self):
+        while True:
+            command = input('Would you like to place a tile, wall, or capstone? (T/W/C): ')
+            if command == 'X':
+                return None
+            elif command == 'T':
+                return PieceType.TILE
+            elif command == 'W':
+                return PieceType.WALL
+            elif command == 'C':
+                return PieceType.CAPSTONE
+            else:
+                print('Entered:', command, 'Please enter a valid input.')
+
+    def __get_placement_move(self, position, piece_type, moves):
+        for move in moves:
+            if type(move) == PlacementMove and move.position[0] == position[0] and move.position[1] == position[1] and \
+                    move.piece.type == piece_type and move.player == self.color:
+                return move
+        return None
 
 
 def main():
