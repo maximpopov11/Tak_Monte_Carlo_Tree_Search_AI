@@ -180,7 +180,7 @@ def play_game(board, white_agent, black_agent):
     while True:
         move = agent.query(board)
         board = result(board, move)
-        terminal = terminal_test(board, agent.color)[0]
+        terminal = terminal_test(board, agent.color)
         if terminal[0]:
             print('The winner is', terminal[1], '!!!')
             break
