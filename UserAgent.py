@@ -185,7 +185,6 @@ def test_flat_win_piece_type(board):
     board[4][4].pop()
 
 
-
 def test_flat_win_tie(board):
     """Manual testing for flat win:
     - pieces used (place C (1, 0)); tie: Black wins"""
@@ -195,17 +194,28 @@ def test_flat_win_tie(board):
     board[1][1].append(Piece(PieceColor.BLACK, PieceType.CAPSTONE, (0, 0, 0)))
 
 
+def test_road(board):
+    # TODO: placing a white tile on [0,4] (entering P, 0, 4, T) incorrectly does not result in a white win
+    """Manual testing for flat win:
+    - wall (0,4) = continue -> capstone (4,0) = black win (tests piece types, dragon clause)"""
+    for i in range(BOARD_SIZE - 1):
+        board[0][i].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, i, 0)))
+        board[i][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (i, 0, 0)))
+        board[BOARD_SIZE-1][i+1].append(Piece(PieceColor.BLACK, PieceType.TILE, (BOARD_SIZE-1, i+1, 0)))
+
+
 def main():
     board = blank_board()
     # test_carry_limit(board)
     # test_flat_win_piece_type(board)
     # test_flat_win_tie(board)
+    test_road(board)
     play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
     # TODO: no road with walls
     # TODO: yes road with capstone
     # TODO: dragon clause
     # TODO: no stack move over wall or capstone
-    # TODO: stack move capstone flatten wall
+    # TODO: stack move capstone (solo capstone) flatten wall
     # TODO: opening turn opposite color play TILE (not wall/capstone)
     # TODO: play out a full game vs self
 
