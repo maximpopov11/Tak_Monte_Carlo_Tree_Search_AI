@@ -323,7 +323,7 @@ def get_stack_moves_in_direction(moves, board, position, direction):
                         cFlag = 1
                         break
                     if target_space[-1].type == PieceType.CAPSTONE:
-                        cFlag
+                        cFlag = 1
                         break
             num_pieces_already_placed += stack_remainders[i]
         if cFlag:
