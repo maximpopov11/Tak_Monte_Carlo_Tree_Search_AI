@@ -195,7 +195,6 @@ def test_flat_win_tie(board):
 
 
 def test_road(board):
-    # TODO: placing a white tile on [0,4] (entering P, 0, 4, T) incorrectly does not result in a white win
     """Manual testing for flat win:
     - wall (0,4) = continue -> capstone (4,0) = black win (tests piece types, dragon clause)"""
     for i in range(BOARD_SIZE - 1):
@@ -204,18 +203,33 @@ def test_road(board):
         board[BOARD_SIZE-1][i+1].append(Piece(PieceColor.BLACK, PieceType.TILE, (BOARD_SIZE-1, i+1, 0)))
 
 
+def test_stack_moves(board):
+    """Manual testing for stack moves:
+    # TODO: illegally allowed and doesn't crush
+    - (0, 0) stack right [1] fails (wall blocking)
+    - (1, 0) stack right [1] succeeds (wall crushed)
+    # TODO: illegally allowed and doesn't crush
+    - (1, 0) stack right [2] fails (wall blocking)
+    - (1, 0) stack down [1] succeeds (wall crushed)
+    # TODO: illegally allowed
+    - (0, 0) stack down [1] fails (capstone blocking)"""
+    for i in range(BOARD_SIZE + 1):
+        board[0][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, 0, i)))
+        board[1][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (1, 0, i)))
+    board[1][0].append(Piece(PieceColor.WHITE, PieceType.CAPSTONE, (1, 0, BOARD_SIZE+1)))
+    board[0][1].append(Piece(PieceColor.BLACK, PieceType.WALL, (0, 1, 0)))
+    board[1][1].append(Piece(PieceColor.BLACK, PieceType.WALL, (1, 1, 0)))
+    board[2][0].append(Piece(PieceColor.WHITE, PieceType.WALL, (2, 0, 0)))
+
+
 def main():
     board = blank_board()
     # test_carry_limit(board)
     # test_flat_win_piece_type(board)
     # test_flat_win_tie(board)
-    test_road(board)
+    # test_road(board)
+    test_stack_moves(board)
     play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
-    # TODO: no road with walls
-    # TODO: yes road with capstone
-    # TODO: dragon clause
-    # TODO: no stack move over wall or capstone
-    # TODO: stack move capstone (solo capstone) flatten wall
     # TODO: opening turn opposite color play TILE (not wall/capstone)
     # TODO: play out a full game vs self
 

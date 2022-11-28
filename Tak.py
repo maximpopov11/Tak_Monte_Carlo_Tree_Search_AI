@@ -341,6 +341,7 @@ def terminal_test(board, last_to_move):
     fewest_pieces = 1
     enemy_road_created = False
     # Checks for roads and board coverage
+    enemy_road_created = False
     for j, row in enumerate(board):
         for i, space in enumerate(row):
             fewest_pieces = min(len(space), fewest_pieces)  # Tracks board coverage for flat win condition
