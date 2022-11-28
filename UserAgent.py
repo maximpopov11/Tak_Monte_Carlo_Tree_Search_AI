@@ -11,9 +11,12 @@ class User:
     def __init__(self, color):
         self.color = color
 
-    def query(self, board):
+    def query(self, board, is_first_turn=False):
         print_state(board)
-        moves = get_moves(board, self.color)
+        if is_first_turn:
+            moves = get_moves_first_turn(board, self.color)
+        else:
+            moves = get_moves(board, self.color)
         print('Follow the prompts to enter a move or restart the process (X).')
         while True:
             move_type = self.__get_move_type()
@@ -30,7 +33,7 @@ class User:
                 piece_type = self.__get_piece_type()
                 if piece_type is None:
                     continue
-                move = self.__get_placement_move(position, piece_type, moves)
+                move = self.__get_placement_move(position, piece_type, moves, is_first_turn)
                 if move is not None:
                     return move
                 else:
@@ -145,10 +148,13 @@ class User:
                 except:
                     print('Entered:', command, 'Please enter a valid input.')
 
-    def __get_placement_move(self, position, piece_type, moves):
+    def __get_placement_move(self, position, piece_type, moves, first_turn=False):
+        color = self.color
+        if first_turn:
+            color = PieceColor.WHITE if color == PieceColor.BLACK else PieceColor.BLACK
         for move in moves:
             if type(move) == PlacementMove and move.position[0] == position[0] and move.position[1] == position[1] and \
-                    move.piece.type == piece_type and move.player == self.color:
+                    move.piece.type == piece_type and move.player == color:
                 return move
         return None
 
@@ -200,23 +206,20 @@ def test_road(board):
     for i in range(BOARD_SIZE - 1):
         board[0][i].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, i, 0)))
         board[i][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (i, 0, 0)))
-        board[BOARD_SIZE-1][i+1].append(Piece(PieceColor.BLACK, PieceType.TILE, (BOARD_SIZE-1, i+1, 0)))
+        board[BOARD_SIZE - 1][i + 1].append(Piece(PieceColor.BLACK, PieceType.TILE, (BOARD_SIZE - 1, i + 1, 0)))
 
 
 def test_stack_moves(board):
     """Manual testing for stack moves:
-    # TODO: illegally allowed and doesn't crush
     - (0, 0) stack right [1] fails (wall blocking)
     - (1, 0) stack right [1] succeeds (wall crushed)
-    # TODO: illegally allowed and doesn't crush
     - (1, 0) stack right [2] fails (wall blocking)
     - (1, 0) stack down [1] succeeds (wall crushed)
-    # TODO: illegally allowed
     - (0, 0) stack down [1] fails (capstone blocking)"""
     for i in range(BOARD_SIZE + 1):
         board[0][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (0, 0, i)))
         board[1][0].append(Piece(PieceColor.WHITE, PieceType.TILE, (1, 0, i)))
-    board[1][0].append(Piece(PieceColor.WHITE, PieceType.CAPSTONE, (1, 0, BOARD_SIZE+1)))
+    board[1][0].append(Piece(PieceColor.WHITE, PieceType.CAPSTONE, (1, 0, BOARD_SIZE + 1)))
     board[0][1].append(Piece(PieceColor.BLACK, PieceType.WALL, (0, 1, 0)))
     board[1][1].append(Piece(PieceColor.BLACK, PieceType.WALL, (1, 1, 0)))
     board[2][0].append(Piece(PieceColor.WHITE, PieceType.WALL, (2, 0, 0)))
@@ -228,10 +231,10 @@ def main():
     # test_flat_win_piece_type(board)
     # test_flat_win_tie(board)
     # test_road(board)
-    test_stack_moves(board)
+    # test_stack_moves(board)
     play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
-    # TODO: opening turn opposite color play TILE (not wall/capstone)
     # TODO: play out a full game vs self
+    # TODO: play out a full game vs AI
 
 
 if __name__ == "__main__":

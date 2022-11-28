@@ -35,7 +35,7 @@ ZBITS = m.ceil(m.log(2 * (NUM_CAPSTONES + NUM_PIECES), 2))
 PIECE_SIZE = ROWBITS + COLBITS + ZBITS + 1  # No. of bits used in binary encoding of a piece
 CAPSTONE_SIZE = PIECE_SIZE - 1  # No. of bits used in binary encoding of a capstone
 GAMESIZE = 2 * (
-            PIECE_SIZE * NUM_PIECES + CAPSTONE_SIZE * NUM_CAPSTONES)  # No. of bits used in binary encoding of game board
+        PIECE_SIZE * NUM_PIECES + CAPSTONE_SIZE * NUM_CAPSTONES)  # No. of bits used in binary encoding of game board
 
 GameState = namedtuple('GameState', 'to_move, moves, board')
 
@@ -174,8 +174,14 @@ def player_still_has_pieces(board, player):
 
 
 # ------------------------------------Moves------------------------------------#
-def play_game(board, white_agent, black_agent):
+def play_game(board, white_agent, black_agent, testing=False):
     """Plays the game by querying the given agents for moves and updating the board respectively"""
+    # first move works differently
+    if not testing:
+        move = white_agent.query(board, True)
+        board = result(board, move)
+        move = black_agent.query(board, True)
+        board = result(board, move)
     agent = white_agent
     while True:
         move = agent.query(board)
@@ -191,6 +197,7 @@ def make_move(game, move):
     """Updates a game instance to reflect a real change in game,
     i.e. a non-simulation move."""
     game.board = result(game.board, move)
+
 
 def result(board, move):
     """Adjudicates the result of the game after the move being made."""
@@ -218,7 +225,7 @@ def result(board, move):
                 piece.position[2] += move.stack_remainders[i] - j - 1
                 l.appendleft(piece)
             if len(l) == 1 and l[0].type == PieceType.CAPSTONE:
-                if len(target_space):  
+                if len(target_space):
                     if target_space[-1].type == PieceType.WALL:
                         target_space[-1].type = PieceType.TILE
             target_space.extend(l)
@@ -230,7 +237,18 @@ def result(board, move):
     return board_c
 
 
-# TODO: Walls can be stacked on top of by walls and tiles rn. Big Bad
+def get_moves_first_turn(board, color):
+    """Returns legal first turn moves."""
+    opposite_color = PieceColor.WHITE if color == PieceColor.BLACK else PieceColor.BLACK
+    moves = []
+    for row in range(0, BOARD_SIZE):
+        for col in range(0, BOARD_SIZE):
+            stack = board[row][col]
+            if len(stack) == 0:
+                moves.append(PlacementMove((row, col, 0), Piece(opposite_color, PieceType.TILE, (row, col, 0))))
+    return moves
+
+
 def get_moves(board, color):
     """Returns legal moves."""
     moves = []
@@ -253,7 +271,8 @@ def get_moves(board, color):
                 get_stack_moves_in_direction(moves, board, (row, col), Direction.RIGHT)
     return moves
 
-#MAINTAIN SUM - LEN ORDERING
+
+# MAINTAIN SUM - LEN ORDERING
 STACK_REMAINDERS = [
     [1],
     [2],
@@ -286,6 +305,8 @@ STACK_REMAINDERS = [
     [1, 1, 2, 1],
     [1, 1, 1, 2],
 ]
+
+
 def get_stack_moves_in_direction(moves, board, position, direction):
     """Adds all possible stack moves in the given direction to moves"""
     max_distance = 0
@@ -301,17 +322,17 @@ def get_stack_moves_in_direction(moves, board, position, direction):
             break
         else:
             max_distance += 1
-    
+
     if max_distance == 0:
-            return
-    #If you can move that far (moving 4 away is 1,1,1,1, and perms(1,1,1,2) e.g. sum(stack_remainders) = 5 or (1,1,1,1) = 4)
+        return
+    # If you can move that far (moving 4 away is 1,1,1,1, and perms(1,1,1,2) e.g. sum(stack_remainders) = 5 or (1,1,1,1) = 4)
     for stack_remainders in STACK_REMAINDERS:
-        if len(stack_remainders) > max_distance: # Trying to move further than possible
+        if len(stack_remainders) > max_distance:  # Trying to move further than possible
             continue
-        if sum(stack_remainders) > len(board[position[0]][position[1]]): # Trying to move more pieces than possible
-            break # sum-asc Order of STACK_REMAINDERS means we can break not continue here
+        if sum(stack_remainders) > len(board[position[0]][position[1]]):  # Trying to move more pieces than possible
+            break  # sum-asc Order of STACK_REMAINDERS means we can break not continue here
         cFlag = 0
-        #Trying to cover a wall or capstone?
+        # Trying to cover a wall or capstone?
         num_pieces_already_placed = 0
         size_of_stack = sum(stack_remainders)
         for i in range(len(stack_remainders)):  # Length of stack placement path is == len(stack_remainders)
@@ -337,8 +358,8 @@ def terminal_test(board, last_to_move):
     a tuple (terminal, winner), with terminal = True or False
     depending on if the board represents a terminal state, and
     winner = PieceColor of last_to_move (default) or the winning player."""
-    white_pieces = NUM_PIECES+NUM_CAPSTONES
-    black_pieces = NUM_PIECES+NUM_CAPSTONES
+    white_pieces = NUM_PIECES + NUM_CAPSTONES
+    black_pieces = NUM_PIECES + NUM_CAPSTONES
     white_flat_win_tally = 0
     black_flat_win_tally = 0
     players_with_roads = set()
@@ -351,25 +372,25 @@ def terminal_test(board, last_to_move):
             # Road checking begins below
             if len(space) > 0:  # There's at least 1 piece in the current location
                 if i == 0 or j == 0:  # We are on the top or left edges of the board
-                    #Road Win
+                    # Road Win
                     if space[-1].type != PieceType.WALL:  # Piece at top of stack can be part of road
-                        if find_roads(board,space[-1]):
+                        if find_roads(board, space[-1]):
                             if space[-1].color == last_to_move:
-                                return (True, last_to_move) # If road belongs to road-making player
-                            enemy_road_created = True       # Flag handles enemy road and no road-maker road.
-                #Flat Win Scoring
+                                return (True, last_to_move)  # If road belongs to road-making player
+                            enemy_road_created = True  # Flag handles enemy road and no road-maker road.
+                # Flat Win Scoring
                 if space[-1].type == PieceType.TILE:
                     if space[-1].color == PieceColor.WHITE:
                         white_flat_win_tally += 1
                     else:
                         black_flat_win_tally += 1
-                #Flat Win Condition Tracking                   
+                # Flat Win Condition Tracking
                 for piece in space:
                     if piece.color == PieceColor.WHITE:
                         white_pieces -= 1
                     else:
                         black_pieces -= 1
-   
+
     if enemy_road_created:
         winner = PieceColor.BLACK if last_to_move == PieceColor.WHITE else PieceColor.WHITE
         return (True, winner)
@@ -381,7 +402,8 @@ def terminal_test(board, last_to_move):
         return (True, winner)
     return (False, None)
 
-def find_roads(board,piece):
+
+def find_roads(board, piece):
     """Starting point of a recursive DFS looking for roads across the 2D board array.
     Returns true if a road is found originating from the given piece."""
     row = piece.position[0]
@@ -440,6 +462,7 @@ def find_roads_rec(board, i, j, color, row_start, col_start, seen):
         if colDir in range(BOARD_SIZE) and (row, colDir) not in seen:
             colSearch = find_roads_rec(board, row, colDir, piece.color, row_start, col_start, seen)
     return rowSearch or colSearch
+
 
 # ----------------------State Encoding/Decoding Functions----------------------#
 def encode_state(board):
