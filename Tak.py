@@ -310,7 +310,7 @@ def get_stack_moves_in_direction(moves, board, position, direction):
             continue
         if sum(stack_remainders) > len(board[position[0]][position[1]]): # Trying to move more pieces than possible
             break # sum-asc Order of STACK_REMAINDERS means we can break not continue here
-
+        cFlag = 0
         #Trying to cover a wall or capstone?
         num_pieces_already_placed = 0
         size_of_stack = sum(stack_remainders)
@@ -320,10 +320,14 @@ def get_stack_moves_in_direction(moves, board, position, direction):
             if len(target_space):
                 if target_space[-1].type != PieceType.TILE:
                     if covering_piece.type != PieceType.CAPSTONE:
+                        cFlag = 1
                         break
                     if target_space[-1].type == PieceType.CAPSTONE:
+                        cFlag
                         break
             num_pieces_already_placed += stack_remainders[i]
+        if cFlag:
+            continue
         moves.append(StackMove(board[position[0]][position[1]][-1], direction, stack_remainders))
 
 
@@ -341,7 +345,6 @@ def terminal_test(board, last_to_move):
     fewest_pieces = 1
     enemy_road_created = False
     # Checks for roads and board coverage
-    enemy_road_created = False
     for j, row in enumerate(board):
         for i, space in enumerate(row):
             fewest_pieces = min(len(space), fewest_pieces)  # Tracks board coverage for flat win condition
