@@ -463,6 +463,58 @@ def find_roads_rec(board, i, j, color, row_start, col_start, seen):
             colSearch = find_roads_rec(board, row, colDir, piece.color, row_start, col_start, seen)
     return rowSearch or colSearch
 
+#-----------------------------Heuristic Utilities------------------------------#
+# h1 only cares about the pieces on the top level of their respective stacks
+# this means we should be able to get clear changes in h1's value without
+# full or even overly-extensive partial board re-evals between moves.
+def h1(board, color):
+    score = 0
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if len(board[i][j]):
+                top_piece = board[i][j][-1]
+                if top_piece.color == color:
+                    if top_piece.type == PieceType.WALL:
+                        score += 1
+                    else:
+                        score += 2
+                else:
+                    if top_piece.type == PieceType.WALL:
+                        score -= 1
+                    else:
+                        score -= 2
+                # for k in range(-2,max(-6,-1*len(board[i][j])),-1):
+                #     if board[i][j][k].color == color and board[i][j][k].type != PieceType.WALL:
+                #         score += 5 / (-1*k)
+
+def h1_delta(color, board, move, base_score):
+    delta = 0
+    if isinstance(move,PlacementMove):
+        delta += 1 if move.piece.type == PieceType.WALL else 2
+    else:
+        [-1 * size_of_stack + num_pieces_already_placed]
+        size_of_stack = sum(move.stack_remainder)
+        num_pieces_already_placed = 0
+        init_space = board[move.position[0]][move.position[1]]
+        for i in range(len(move.stack_remainders)):
+            target_space = board[move.position[0] + (i + 1) * move.direction.value[0]][move.position[1] + (i + 1) * move.direction.value[1]]
+            new_top_piece = board[move.position[0]][move.position[1]][-1 * size_of_stack + num_pieces_already_placed + move.stack_remainders[i] - 1]
+            if len(target_space):
+                if target_space.color != color:
+                    delta += 1 if target_space.type == PieceType.WALL else 2
+                if target_space.color == color:
+                    if target_space.type == PieceType.WALL:
+                        delta -= 1
+                    else:
+                        delta -= 2
+            if new_top_piece.color == color:
+                if new_top_piece.type == PieceType.WALL:
+                    delta += 1
+                else:
+                    delta += 2
+            else:
+                delta -= 2
+    return delta+base_score
 
 # ----------------------State Encoding/Decoding Functions----------------------#
 def encode_state(board):

@@ -3,7 +3,7 @@ from time import *
 import numpy as np
 from collections import defaultdict
 from Tak import *
-import logging
+import timeit
 
 
 class MCTSNode:
@@ -80,16 +80,19 @@ Untried Actions:{self._untried_actions}""")
     def is_terminal_node(self,board):
         return terminal_test(board, PieceColor.BLACK if self.agent_color == PieceColor.WHITE else PieceColor.WHITE)[0] 
         
+    
     def rollout(self):
         board = decode_state(self.state_int)
         color = PieceColor.BLACK if self.agent_color == PieceColor.WHITE else PieceColor.WHITE
         # f.write(top_board_string(board)+'\n')
+        score = h1(board, color)
         end_state = terminal_test(board,self.agent_color)
         i = 0
         while not end_state[0]:   
             
             possible_moves = get_moves(board, color)
-            action = self.rollout_policy(possible_moves)
+            # TODO: score update needs to be reflective of who's turn it is... somehow?
+            action, score = self.h1_rollout_policy(possible_moves, color, board, score)
             board = result(board, action)
         
             # f.write(top_board_string(board))
@@ -118,6 +121,17 @@ Untried Actions:{self._untried_actions}""")
     def rollout_policy(self, possible_moves):
         return possible_moves[np.random.randint(len(possible_moves))]
 
+    def h1_rollout_policy(self, possible_moves,color,board,base_score):
+        best_move = None
+        best_score = 0
+        for move in possible_moves:
+            curr_score = h1_delta(color,board,move,base_score) 
+            if curr_score > best_score:
+                best_move = move
+                best_score = curr_score
+        return best_move, best_score
+
+
     def _tree_policy(self,board):
         current_node = self
         while not current_node.is_terminal_node(board):
@@ -135,7 +149,7 @@ Untried Actions:{self._untried_actions}""")
         t_start = time()
         t_curr = t_start
         # t_curr - t_start < 30 and
-        while  sim_total <= sim_goal and t_curr - t_start < 10:
+        while t_curr - t_start < 10:
             # f = open(f"simulation{i+1}.txt","w")
             # print("Simulation No.:",sim_total+1,end = ' ')
             v = self._tree_policy(board)
