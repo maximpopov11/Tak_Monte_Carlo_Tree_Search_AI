@@ -7,8 +7,9 @@ import logging
 
 
 class MCTSNode:
-    def __init__(self, state_int, parent = None, parent_action = None, agent = PieceColor.WHITE):
+    def __init__(self, state_int, policy_int, parent = None, parent_action = None, agent = PieceColor.WHITE):
         self.state_int = state_int
+        self.policy_int = policy_int
         self.agent_color = agent
         self.parent = parent
         self.parent_action = parent_action
@@ -26,7 +27,7 @@ class MCTSNode:
             if action == child.parent_action:
                 return child
         #Child has not been seen yet. (MCTS has not seen this move. No data collected yet)
-        return MCTSNode(encode_state(unseen_board),parent=self,parent_action=action,agent=self.agent_color)
+        return MCTSNode(encode_state(unseen_board),self.policy_int,parent=self,parent_action=action,agent=self.agent_color)
 
     def untried_actions(self):
         board = decode_state(self.state_int)
@@ -50,7 +51,8 @@ class MCTSNode:
             next_state = result(board,action)
         
             child_node = MCTSNode(
-                encode_state(next_state), 
+                encode_state(next_state),
+                self.policy_int,
                 parent=self, 
                 parent_action=action, 
                 agent= self.agent_color
@@ -116,7 +118,53 @@ Untried Actions:{self._untried_actions}""")
         return self.children[np.argmax(choices_weights)]
 
     def rollout_policy(self, possible_moves):
+        if self.policy_int == 0:
+            return self.__random_rollout_policy(possible_moves)
+        elif self.policy_int == 1:
+            return self.__simple_heuristic_policy(possible_moves)
+        else:
+            raise ValueError("policy_int does not correspond to a policy:", self.policy_int)
+
+    def __random_rollout_policy(self, possible_moves):
+        """Returns random move"""
         return possible_moves[np.random.randint(len(possible_moves))]
+
+    def __simple_heuristic_policy(self, possible_moves):
+        """Returns random move weighted toward tile/capstone placement and large stack moves.
+        Placement of a tile/capstone is weighted at 3.
+        Stack moves are weighted at the number of moving pieces."""
+        weighted_list = []
+        place_tile_capstone_weight = int(BOARD_SIZE / 2)
+        for i in range(BOARD_SIZE):
+            weighted_list.append([])
+        # append moves to appropriate weight level in list
+        for move in possible_moves:
+            if type(move) == PlacementMove:
+                if move.piece != PieceType.WALL:
+                    weighted_list[place_tile_capstone_weight].append(move)
+            elif type(move) == StackMove:
+                # stack move of 1 piece is given the lowest weight
+                total = -1
+                for remainder in move.stack_remainders:
+                    total += remainder
+                weighted_list[total].append(move)
+            else:
+                weighted_list[1].append(move)
+        # get weighted-random move
+        total_weight = 0
+        for i in range(len(weighted_list)):
+            total_weight += (i+1) * len(weighted_list[i])
+        rand = np.random.randint(total_weight)
+        level = -1
+        for i in range(len(weighted_list)):
+            level_weight = (i+1) * len(weighted_list[i])
+            if rand > level_weight:
+                rand -= level_weight
+            else:
+                level = i
+                break
+        index = int(rand / (level + 1))
+        return weighted_list[level][index]
 
     def _tree_policy(self,board):
         current_node = self
@@ -153,11 +201,11 @@ def main():
     initial_state = bits_to_int([1]*GAMESIZE)
     game = TakGame(decode_state(initial_state))
     
-    white_root = MCTSNode(state_int=initial_state)
+    white_root = MCTSNode(state_int=initial_state, policy_int=0)
     white_selected_node = white_root.best_action()
     action = white_selected_node.parent_action
     make_move(game, action)
-    black_root = MCTSNode(state_int=encode_state(game.board),agent = PieceColor.BLACK)
+    black_root = MCTSNode(state_int=encode_state(game.board), policy_int=1, agent = PieceColor.BLACK)
     
     while not black_root.is_terminal_node(decode_state(black_root.state_int)) and not white_root.is_terminal_node(decode_state(white_root.state_int)):
         black_selected_node = black_root.best_action()

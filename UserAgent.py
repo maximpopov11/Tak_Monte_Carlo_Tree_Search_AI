@@ -233,7 +233,6 @@ def main():
     # test_road(board)
     # test_stack_moves(board)
     play_game(board, User(PieceColor.WHITE), User(PieceColor.BLACK))
-    # TODO: play out a full game vs self
     # TODO: play out a full game vs AI
 
 
