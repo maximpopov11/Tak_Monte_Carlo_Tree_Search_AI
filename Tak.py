@@ -2,6 +2,7 @@ from collections import deque, namedtuple
 from copy import deepcopy
 from enum import Enum
 import math as m
+from typing import Union
 
 """
 Collection of functions to perform various tasks reflective of the game Tak
@@ -467,13 +468,13 @@ def find_roads_rec(board, i, j, color, row_start, col_start, seen):
 # h1 only cares about the pieces on the top level of their respective stacks
 # this means we should be able to get clear changes in h1's value without
 # full or even overly-extensive partial board re-evals between moves.
-def h1(board, color):
+def h1(board:list[list[deque]])->int:
     score = 0
     for i in range(len(board)):
         for j in range(len(board)):
             if len(board[i][j]):
                 top_piece = board[i][j][-1]
-                if top_piece.color == color:
+                if top_piece.color == PieceColor.WHITE:
                     if top_piece.type == PieceType.WALL:
                         score += 1
                     else:
@@ -486,34 +487,35 @@ def h1(board, color):
                 # for k in range(-2,max(-6,-1*len(board[i][j])),-1):
                 #     if board[i][j][k].color == color and board[i][j][k].type != PieceType.WALL:
                 #         score += 5 / (-1*k)
+    return score
 
-def h1_delta(color, board, move, base_score):
+def h1_delta(board:list[list[deque]], move: Union[PlacementMove, StackMove], base_score:int)->int:
     delta = 0
+    color_factor = 1 if move.piece.color == PieceColor.WHITE else -1
+    
     if isinstance(move,PlacementMove):
-        delta += 1 if move.piece.type == PieceType.WALL else 2
+        delta += 1*color_factor if move.piece.type == PieceType.WALL else 2*color_factor
     else:
-        [-1 * size_of_stack + num_pieces_already_placed]
-        size_of_stack = sum(move.stack_remainder)
+        size_of_stack = sum(move.stack_remainders)
         num_pieces_already_placed = 0
         init_space = board[move.position[0]][move.position[1]]
         for i in range(len(move.stack_remainders)):
-            target_space = board[move.position[0] + (i + 1) * move.direction.value[0]][move.position[1] + (i + 1) * move.direction.value[1]]
-            new_top_piece = board[move.position[0]][move.position[1]][-1 * size_of_stack + num_pieces_already_placed + move.stack_remainders[i] - 1]
-            if len(target_space):
-                if target_space.color != color:
-                    delta += 1 if target_space.type == PieceType.WALL else 2
-                if target_space.color == color:
-                    if target_space.type == PieceType.WALL:
-                        delta -= 1
-                    else:
-                        delta -= 2
-            if new_top_piece.color == color:
-                if new_top_piece.type == PieceType.WALL:
-                    delta += 1
+            covered_space = board[move.position[0] + (i + 1) * move.direction.value[0]][move.position[1] + (i + 1) * move.direction.value[1]]
+            new_top= board[move.position[0]][move.position[1]][-1 * size_of_stack + num_pieces_already_placed + move.stack_remainders[i] - 1]
+            new_top_color_factor = 1 if new_top.color == PieceColor.WHITE else -1
+            if len(covered_space):
+                covered_piece = covered_space[-1]
+                covered_piece_color_factor = -1 if covered_piece.color == PieceColor.WHITE else 1
+                if covered_piece.type == PieceType.WALL:
+                    delta += 1*covered_piece_color_factor 
                 else:
-                    delta += 2
+                    delta += 2*covered_piece_color_factor
+            
+            if new_top.type == PieceType.WALL:
+                delta += 1*new_top_color_factor
             else:
-                delta -= 2
+                delta += 2*new_top_color_factor
+
     return delta+base_score
 
 # ----------------------State Encoding/Decoding Functions----------------------#
