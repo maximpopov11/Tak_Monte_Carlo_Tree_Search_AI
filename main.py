@@ -145,6 +145,8 @@ import logging
 t = blank_board()
 for i in range(len(t)):
     for j in range(len(t)):
-        t[0][j].append(Piece(Piece.WHITE, PieceType.TILE, (0,j,0)))
+        t[0][j].append(Piece(PieceColor.WHITE, PieceType.TILE, (0,j,0)))
 print(top_board_string(board = t))
 print(terminal_test(t,PieceColor.WHITE))
+
+print(PieceColor.WHITE)

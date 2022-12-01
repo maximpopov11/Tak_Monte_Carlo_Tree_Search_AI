@@ -3,7 +3,6 @@ from time import *
 import numpy as np
 from collections import defaultdict
 from Tak import *
-import timeit
 
 class Policy(Enum):
     RANDOM,H1 = range(2)
@@ -183,55 +182,3 @@ Untried Actions:{self._untried_actions}""")
         return self.best_child(c_param=0.1)
 
 
-#TODO: expand -> next_state = result(...) sometimes gets an error with Tak.py line 205 piece = ...pop() cannout pop from an empty dq.
-def main():
-    initial_state = bits_to_int([1]*GAMESIZE)
-    game = TakGame(decode_state(initial_state))
-    
-    white_root = MCTSNode(state_int=initial_state)
-    white_selected_node = white_root.best_action()
-    white_action = white_selected_node.parent_action
-    print(f"{white_root.agent_color} won {white_root._results[1]} out of {white_root._number_of_visits} games")
-    print(f"{white_action} won {white_selected_node._results[1]} out of {white_selected_node._number_of_visits} games")
-    action = white_selected_node.parent_action
-    make_move(game, action)
-    print(top_board_string(game.board))
-    black_root = MCTSNode(state_int=encode_state(game.board),agent = PieceColor.BLACK)
-    # not black_root.is_terminal_node(decode_state(black_root.state_int)) and not white_root.is_terminal_node(decode_state(white_root.state_int))
-    while True:
-        black_selected_node = black_root.best_action()
-        black_action = black_selected_node.parent_action
-        
-        print(f"{black_root.agent_color} won {black_root._results[1]} out of {black_root._number_of_visits} games")
-        print(f"{black_action} won  {black_selected_node._results[1]} out of  {black_selected_node._number_of_visits} games")
-        
-        make_move(game,black_action)
-        if terminal_test(game.board, PieceColor.BLACK)[0]:
-            print("Winner: Black")
-            break
-        print(top_board_string(game.board))
-        print(stacks_string(game.board))
-
-        white_root = white_selected_node.return_child(black_action,game.board)
-        white_root.make_node_root(PieceColor.WHITE)
-
-        white_selected_node = white_root.best_action()
-        white_action = white_selected_node.parent_action
-
-        print(f"{white_root.agent_color} won {white_root._results[1]} out of {white_root._number_of_visits} games")
-        print(f"{white_action} won {white_selected_node._results[1]} out of {white_selected_node._number_of_visits} games")
-        
-        make_move(game,white_action)
-        print(top_board_string(game.board))
-        print(stacks_string(game.board))
-        if terminal_test(game.board, PieceColor.WHITE)[0]:
-            print("Winner: White")
-            break
-        
-        black_root = black_selected_node.return_child(white_action,game.board)
-        black_root.make_node_root(PieceColor.BLACK)
-
-    return 
-
-if __name__ == "__main__":
-    main()
