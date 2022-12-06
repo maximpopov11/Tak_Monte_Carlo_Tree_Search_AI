@@ -1,0 +1,1408 @@
+Simulating 72 moves
+Black won 85.0 out of 145.0 games
+BT (2, 2, 0) won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    |    |    |
+2|    |    | BT |    |    |
+3|    |    |    |    | WW |
+4|    |    |    |    |    |
+
+[2,2]: deque([BT])
+[3,4]: deque([WW])
+
+Simulating 72 moves
+White won 61.0 out of 144.0 games
+Stack at [3, 4, 0], Direction.UP, Order: [1] won 3.0 out of 4.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1|    |    |    |    |    |
+2|    |    | BT |    | WW |
+3|    |    |    |    |    |
+4|    |    |    |    |    |
+
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+
+Simulating 73 moves
+Black won 83.0 out of 146.0 games
+BT (1, 0, 0) won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT |    |    |    |    |
+2|    |    | BT |    | WW |
+3|    |    |    |    |    |
+4|    |    |    |    |    |
+
+[1,0]: deque([BT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+
+Simulating 69 moves
+White won 51.0 out of 138.0 games
+WW (1, 2, 0) won 6.0 out of 10.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT |    | WW |    |    |
+2|    |    | BT |    | WW |
+3|    |    |    |    |    |
+4|    |    |    |    |    |
+
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+
+Simulating 69 moves
+Black won 87.0 out of 138.0 games
+BW (4, 3, 0) won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT |    | WW |    |    |
+2|    |    | BT |    | WW |
+3|    |    |    |    |    |
+4|    |    |    | BW |    |
+
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[4,3]: deque([BW])
+
+Simulating 67 moves
+White won 44.0 out of 142.0 games
+WT (1, 1, 0) won 8.0 out of 13.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT | WT | WW |    |    |
+2|    |    | BT |    | WW |
+3|    |    |    |    |    |
+4|    |    |    | BW |    |
+
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[4,3]: deque([BW])
+
+Simulating 66 moves
+Black won 89.0 out of 139.0 games
+Stack at [4, 3, 0], Direction.UP, Order: [1] won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT | WT | WW |    |    |
+2|    |    | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    |    |
+
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+
+Simulating 67 moves
+White won 53.0 out of 135.0 games
+WC (1, 3, 0) won 7.0 out of 10.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT | WT | WW | WC |    |
+2|    |    | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    |    |
+
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+
+Simulating 64 moves
+Black won 91.0 out of 133.0 games
+BT (4, 4, 0) won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    |    |    |    |    |
+1| BT | WT | WW | WC |    |
+2|    |    | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    | BT |
+
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+[4,4]: deque([BT])
+
+Simulating 47 moves
+White won 43.0 out of 131.0 games
+WW (0, 4, 0) won 15.0 out of 29.0 games
+   0    1    2    3    4
+0|    |    |    |    | WW |
+1| BT | WT | WW | WC |    |
+2|    |    | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    | BT |
+
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+[4,4]: deque([BT])
+
+Simulating 60 moves
+Black won 96.0 out of 142.0 games
+BT (0, 1, 0) won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC |    |
+2|    |    | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    | BT |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+[4,4]: deque([BT])
+
+Simulating 45 moves
+White won 47.0 out of 131.0 games
+WT (1, 4, 0) won 7.0 out of 11.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    |    | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    | BT |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+[4,4]: deque([BT])
+
+Simulating 57 moves
+Black won 86.0 out of 132.0 games
+BT (2, 1, 0) won  3.0 out of  3.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT |    | WW |
+3|    |    |    | BW |    |
+4|    |    |    |    | BT |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,3]: deque([BW])
+[4,4]: deque([BT])
+
+Simulating 41 moves
+White won 53.0 out of 134.0 games
+WT (3, 1, 0) won 2.0 out of 4.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT |    | WW |
+3|    | WT |    | BW |    |
+4|    |    |    |    | BT |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[4,4]: deque([BT])
+
+Simulating 55 moves
+Black won 86.0 out of 137.0 games
+Stack at [4, 4, 0], Direction.UP, Order: [1] won  6.0 out of  6.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT |    | WW |
+3|    | WT |    | BW | BT |
+4|    |    |    |    |    |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[3,4]: deque([BT])
+
+Simulating 43 moves
+White won 47.0 out of 131.0 games
+WT (4, 1, 0) won 4.0 out of 7.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT |    | WW |
+3|    | WT |    | BW | BT |
+4|    | WT |    |    |    |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[3,4]: deque([BT])
+[4,1]: deque([WT])
+
+Simulating 51 moves
+Black won 74.0 out of 132.0 games
+BC (4, 0, 0) won  5.0 out of  6.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT |    | WW |
+3|    | WT |    | BW | BT |
+4| BC | WT |    |    |    |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[3,4]: deque([BT])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 41 moves
+White won 53.0 out of 135.0 games
+WT (2, 3, 0) won 2.0 out of 4.0 games
+   0    1    2    3    4
+0|    | BT |    |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT | WT | WW |
+3|    | WT |    | BW | BT |
+4| BC | WT |    |    |    |
+
+[0,1]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[3,4]: deque([BT])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 38 moves
+Black won 73.0 out of 127.0 games
+BT (0, 2, 0) won  25.0 out of  33.0 games
+   0    1    2    3    4
+0|    | BT | BT |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT | WT | WW |
+3|    | WT |    | BW | BT |
+4| BC | WT |    |    |    |
+
+[0,1]: deque([BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[3,4]: deque([BT])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 38 moves
+White won 54.0 out of 132.0 games
+WT (0, 0, 0) won 29.0 out of 50.0 games
+   0    1    2    3    4
+0| WT | BT | BT |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT | WT | WW |
+3|    | WT |    | BW | BT |
+4| BC | WT |    |    |    |
+
+[0,0]: deque([WT])
+[0,1]: deque([BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([BW])
+[3,4]: deque([BT])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 36 moves
+Black won 74.0 out of 137.0 games
+Stack at [3, 3, 0], Direction.RIGHT, Order: [1] won  4.0 out of  6.0 games
+   0    1    2    3    4
+0| WT | BT | BT |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT | WT | WW |
+3|    | WT |    |    | BW |
+4| BC | WT |    |    |    |
+
+[0,0]: deque([WT])
+[0,1]: deque([BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 40 moves
+White won 76.0 out of 142.0 games
+WW (3, 0, 0) won 10.0 out of 14.0 games
+   0    1    2    3    4
+0| WT | BT | BT |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    |    |    |
+
+[0,0]: deque([WT])
+[0,1]: deque([BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 36 moves
+Black won 69.0 out of 138.0 games
+Stack at [0, 1, 0], Direction.LEFT, Order: [1] won  11.0 out of  18.0 games
+   0    1    2    3    4
+0| BT |    | BT |    | WW |
+1| BT | WT | WW | WC | WT |
+2|    | BT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    |    |    |
+
+[0,0]: deque([WT, BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 39 moves
+White won 56.0 out of 145.0 games
+Stack at [1, 1, 0], Direction.DOWN, Order: [1] won 4.0 out of 8.0 games
+   0    1    2    3    4
+0| BT |    | BT |    | WW |
+1| BT |    | WW | WC | WT |
+2|    | WT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    |    |    |
+
+[0,0]: deque([WT, BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+
+Simulating 39 moves
+Black won 78.0 out of 143.0 games
+BW (4, 3, 0) won  8.0 out of  12.0 games
+   0    1    2    3    4
+0| BT |    | BT |    | WW |
+1| BT |    | WW | WC | WT |
+2|    | WT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    | BW |    |
+
+[0,0]: deque([WT, BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([BW])
+
+Simulating 47 moves
+White won 62.0 out of 139.0 games
+WT (3, 3, 0) won 9.0 out of 13.0 games
+   0    1    2    3    4
+0| BT |    | BT |    | WW |
+1| BT |    | WW | WC | WT |
+2|    | WT | BT | WT | WW |
+3| WW | WT |    | WT | BW |
+4| BC | WT |    | BW |    |
+
+[0,0]: deque([WT, BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([BW])
+
+Simulating 38 moves
+Black won 69.0 out of 140.0 games
+Stack at [4, 3, 0], Direction.RIGHT, Order: [1] won  5.0 out of  8.0 games
+   0    1    2    3    4
+0| BT |    | BT |    | WW |
+1| BT |    | WW | WC | WT |
+2|    | WT | BT | WT | WW |
+3| WW | WT |    | WT | BW |
+4| BC | WT |    |    | BW |
+
+[0,0]: deque([WT, BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,3]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 48 moves
+White won 75.0 out of 139.0 games
+Stack at [3, 3, 0], Direction.DOWN, Order: [1] won 2.0 out of 3.0 games
+   0    1    2    3    4
+0| BT |    | BT |    | WW |
+1| BT |    | WW | WC | WT |
+2|    | WT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    | WT | BW |
+
+[0,0]: deque([WT, BT])
+[0,2]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 34 moves
+Black won 64.0 out of 140.0 games
+Stack at [0, 2, 0], Direction.RIGHT, Order: [1] won  4.0 out of  6.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT |    | WW | WC | WT |
+2|    | WT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    | WT | BW |
+
+[0,0]: deque([WT, BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 47 moves
+White won 77.0 out of 149.0 games
+WT (2, 0, 0) won 22.0 out of 30.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT |    | WW | WC | WT |
+2| WT | WT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    | WT | BW |
+
+[0,0]: deque([WT, BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 31 moves
+Black won 84.0 out of 155.0 games
+Stack at [0, 0, 1], Direction.RIGHT, Order: [2] won  11.0 out of  17.0 games
+   0    1    2    3    4
+0|    | BT |    | BT | WW |
+1| BT |    | WW | WC | WT |
+2| WT | WT | BT | WT | WW |
+3| WW | WT |    |    | BW |
+4| BC | WT |    | WT | BW |
+
+[0,1]: deque([WT, BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[2,4]: deque([WW])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 47 moves
+White won 79.0 out of 145.0 games
+Stack at [2, 4, 0], Direction.UP, Order: [1] won 3.0 out of 4.0 games
+   0    1    2    3    4
+0|    | BT |    | BT | WW |
+1| BT |    | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| WW | WT |    |    | BW |
+4| BC | WT |    | WT | BW |
+
+[0,1]: deque([WT, BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WW])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([BC])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 37 moves
+Black won 62.0 out of 155.0 games
+Stack at [4, 0, 0], Direction.UP, Order: [1] won  4.0 out of  8.0 games
+   0    1    2    3    4
+0|    | BT |    | BT | WW |
+1| BT |    | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC | WT |    |    | BW |
+4|    | WT |    | WT | BW |
+
+[0,1]: deque([WT, BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 50 moves
+White won 87.0 out of 152.0 games
+WW (0, 2, 0) won 7.0 out of 8.0 games
+   0    1    2    3    4
+0|    | BT | WW | BT | WW |
+1| BT |    | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC | WT |    |    | BW |
+4|    | WT |    | WT | BW |
+
+[0,1]: deque([WT, BT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 39 moves
+Black won 60.0 out of 156.0 games
+Stack at [0, 1, 1], Direction.DOWN, Order: [1, 1] won  6.0 out of  12.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| BT | WT | WW | WC | WW |
+2| WT | BT | BT | WT |    |
+3| BC | WT |    |    | BW |
+4|    | WT |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT, BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 41 moves
+White won 104.0 out of 169.0 games
+WT (0, 1, 0) won 22.0 out of 28.0 games
+   0    1    2    3    4
+0|    | WT | WW | BT | WW |
+1| BT | WT | WW | WC | WW |
+2| WT | BT | BT | WT |    |
+3| BC | WT |    |    | BW |
+4|    | WT |    | WT | BW |
+
+[0,1]: deque([WT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([BT, WT, BT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 54 moves
+Black won 64.0 out of 181.0 games
+Stack at [2, 1, 2], Direction.UP, Order: [1, 2] won  25.0 out of  50.0 games
+   0    1    2    3    4
+0|    | BT | WW | BT | WW |
+1| BT | BT | WW | WC | WW |
+2| WT |    | BT | WT |    |
+3| BC | WT |    |    | BW |
+4|    | WT |    | WT | BW |
+
+[0,1]: deque([WT, WT, BT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,1]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 38 moves
+White won 116.0 out of 180.0 games
+Stack at [4, 1, 0], Direction.LEFT, Order: [1] won 41.0 out of 53.0 games
+   0    1    2    3    4
+0|    | BT | WW | BT | WW |
+1| BT | BT | WW | WC | WW |
+2| WT |    | BT | WT |    |
+3| BC | WT |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,1]: deque([WT, WT, BT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 51 moves
+Black won 56.0 out of 181.0 games
+Stack at [0, 1, 2], Direction.DOWN, Order: [1, 1, 1] won  12.0 out of  29.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| BT | WT | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC | BT |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, BT, WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT, BT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 50 moves
+White won 119.0 out of 181.0 games
+Stack at [1, 1, 2], Direction.LEFT, Order: [1] won 8.0 out of 9.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| WT | BT | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC | BT |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT])
+[1,1]: deque([WT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,1]: deque([WT, BT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 46 moves
+Black won 60.0 out of 183.0 games
+Stack at [3, 1, 1], Direction.UP, Order: [1, 1] won  11.0 out of  22.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| WT | BT | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT])
+[1,1]: deque([WT, BT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT])
+[2,1]: deque([WT, WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 52 moves
+White won 111.0 out of 171.0 games
+Stack at [2, 1, 1], Direction.LEFT, Order: [1] won 14.0 out of 16.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| WT | BT | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT])
+[1,1]: deque([WT, BT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 46 moves
+Black won 64.0 out of 170.0 games
+Stack at [1, 1, 2], Direction.LEFT, Order: [2] won  24.0 out of  46.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| BT | WT | WW | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT, BT, BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 46 moves
+White won 124.0 out of 184.0 games
+Stack at [1, 3, 0], Direction.LEFT, Order: [1] won 39.0 out of 46.0 games
+   0    1    2    3    4
+0|    |    | WW | BT | WW |
+1| BT | WT | WC |    | WW |
+2| WT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT, BT, BT])
+[1,1]: deque([WT])
+[1,2]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 48 moves
+Black won 51.0 out of 180.0 games
+BT (0, 0, 0) won  1.0 out of  3.0 games
+   0    1    2    3    4
+0| BT |    | WW | BT | WW |
+1| BT | WT | WC |    | WW |
+2| WT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,0]: deque([BT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT, BT, BT])
+[1,1]: deque([WT])
+[1,2]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 53 moves
+White won 122.0 out of 178.0 games
+Stack at [1, 2, 1], Direction.RIGHT, Order: [2] won 8.0 out of 9.0 games
+   0    1    2    3    4
+0| BT |    | WW | BT | WW |
+1| BT | WT |    | WC | WW |
+2| WT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,0]: deque([BT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT, BT, BT])
+[1,1]: deque([WT])
+[1,3]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 54 moves
+Black won 64.0 out of 175.0 games
+Stack at [1, 0, 3], Direction.DOWN, Order: [1] won  11.0 out of  21.0 games
+   0    1    2    3    4
+0| BT |    | WW | BT | WW |
+1| BT | WT |    | WC | WW |
+2| BT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,0]: deque([BT])
+[0,2]: deque([WW])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT, BT])
+[1,1]: deque([WT])
+[1,3]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 45 moves
+White won 124.0 out of 176.0 games
+Stack at [0, 2, 0], Direction.DOWN, Order: [1] won 11.0 out of 12.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT | WT | WW | WC | WW |
+2| BT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,0]: deque([BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT, WT, BT])
+[1,1]: deque([WT])
+[1,2]: deque([WW])
+[1,3]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 58 moves
+Black won 65.0 out of 167.0 games
+Stack at [1, 0, 2], Direction.RIGHT, Order: [2] won  6.0 out of  10.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT | BT | WW | WC | WW |
+2| BT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    |    | WT | BW |
+
+[0,0]: deque([BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, WT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 39 moves
+White won 127.0 out of 191.0 games
+WT (4, 2, 0) won 40.0 out of 48.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT | BT | WW | WC | WW |
+2| BT | WT | BT | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    | WT | WT | BW |
+
+[0,0]: deque([BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, WT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT])
+[2,2]: deque([BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,2]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 63 moves
+Black won 61.0 out of 191.0 games
+Stack at [2, 2, 0], Direction.LEFT, Order: [1] won  12.0 out of  25.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT | BT | WW | WC | WW |
+2| BT | BT |    | WT |    |
+3| BC |    |    |    | BW |
+4| WT |    | WT | WT | BW |
+
+[0,0]: deque([BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, WT, BT])
+[1,2]: deque([WW])
+[1,3]: deque([WT, WC])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT, BT])
+[2,3]: deque([WT])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,2]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 38 moves
+White won 134.0 out of 206.0 games
+Stack at [1, 3, 1], Direction.DOWN, Order: [2] won 42.0 out of 55.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT | BT | WW |    | WW |
+2| BT | BT |    | WC |    |
+3| BC |    |    |    | BW |
+4| WT |    | WT | WT | BW |
+
+[0,0]: deque([BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,1]: deque([WT, WT, BT])
+[1,2]: deque([WW])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT, BT])
+[2,3]: deque([WT, WT, WC])
+[3,0]: deque([WT, BC])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,2]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 74 moves
+Black won 71.0 out of 214.0 games
+Stack at [1, 1, 2], Direction.DOWN, Order: [2, 1] won  7.0 out of  14.0 games
+   0    1    2    3    4
+0| BT |    |    | BT | WW |
+1| BT |    | WW |    | WW |
+2| BT | WT |    | WC |    |
+3| BC | BT |    |    | BW |
+4| WT |    | WT | WT | BW |
+
+[0,0]: deque([BT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT, BT, WT, WT])
+[2,3]: deque([WT, WT, WC])
+[3,0]: deque([WT, BC])
+[3,1]: deque([BT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,2]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 83 moves
+White won 123.0 out of 193.0 games
+WT (0, 1, 0) won 3.0 out of 3.0 games
+   0    1    2    3    4
+0| BT | WT |    | BT | WW |
+1| BT |    | WW |    | WW |
+2| BT | WT |    | WC |    |
+3| BC | BT |    |    | BW |
+4| WT |    | WT | WT | BW |
+
+[0,0]: deque([BT])
+[0,1]: deque([WT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT, BT, WT, WT])
+[2,3]: deque([WT, WT, WC])
+[3,0]: deque([WT, BC])
+[3,1]: deque([BT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,2]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Simulating 52 moves
+Black won 4971.0 out of 5022.0 games
+BT (4, 1, 0) won  4946.0 out of  4946.0 games
+   0    1    2    3    4
+0| BT | WT |    | BT | WW |
+1| BT |    | WW |    | WW |
+2| BT | WT |    | WC |    |
+3| BC | BT |    |    | BW |
+4| WT | BT | WT | WT | BW |
+
+[0,0]: deque([BT])
+[0,1]: deque([WT])
+[0,3]: deque([BT])
+[0,4]: deque([WW])
+[1,0]: deque([BT])
+[1,2]: deque([WW])
+[1,4]: deque([WT, WW])
+[2,0]: deque([WT, WT, BT])
+[2,1]: deque([WT, BT, WT, WT])
+[2,3]: deque([WT, WT, WC])
+[3,0]: deque([WT, BC])
+[3,1]: deque([BT])
+[3,4]: deque([BT, BW])
+[4,0]: deque([WT])
+[4,1]: deque([BT])
+[4,2]: deque([WT])
+[4,3]: deque([WT])
+[4,4]: deque([BW])
+
+Winner: Black; Turns: 28.0; Time: 553.9200665950775 seconds

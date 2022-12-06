@@ -2,7 +2,7 @@ import os
 
 black = 0
 white = 0
-for i in range(20):
+for i in range(49):
     with open(f'Game {i}.txt', 'rb') as f:
         try:  # catch OSError in case of a one line file 
             f.seek(-2, os.SEEK_END)

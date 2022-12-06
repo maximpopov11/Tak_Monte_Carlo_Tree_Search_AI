@@ -14,7 +14,7 @@ def setup_agent_game(black, white, game):
     return MCTSNode(state_int=encode_state(game.board), rollout_policy_int= black ,agent = PieceColor.BLACK), white_selected_node
 
 
-game_count = 100
+game_count = 150
 f = None
 while game_count < 200:
     turns = 0.5
@@ -29,18 +29,18 @@ while game_count < 200:
         black_root,white_selected_node = setup_agent_game(white = Policy.H1, black = Policy.RANDOM, game=game)
     elif game_count < 100:
         if game_count == 50:
-            if isinstance(f, FILE):
-	        f.close()
-            f = open("WRand vs. BH1.txt","w")
+            if f:
+                f.close()
+            f.open("WRand vs. BH1.txt","w")
             black_wins = 0
             white_wins = 0
-            total_turns = 0
             total_time = 0
+            total_turns = 0
         black_root,white_selected_node = setup_agent_game(white = Policy.RANDOM, black=Policy.H1, game=game)
     elif game_count < 150:
         if game_count == 100:
-          	if f:
-			f.close()
+            if f:
+                f.close()
             f = open("Wrand vs. Brand.txt","w")
             black_wins = 0
             white_wins = 0
@@ -49,7 +49,8 @@ while game_count < 200:
         black_root,white_selected_node = setup_agent_game(white = Policy.RANDOM, black=Policy.RANDOM, game=game)
     elif game_count < 200:
         if game_count == 150:
-            f.close()
+            if f:
+                f.close()
             f = open("WH1 vs. BH1.txt","w")
             black_wins = 0
             white_wins = 0
