@@ -10,6 +10,7 @@ class Policy(Enum):
 class MCTSNode:
     def __init__(self, state_int, rollout_policy_int = Policy.RANDOM, parent = None, parent_action = None, agent = PieceColor.WHITE):
         self.state_int = state_int
+        self.policy_int = rollout_policy_int
         self.agent_color = agent
         self.rollout_policy_int = rollout_policy_int
         self.parent = parent
@@ -28,7 +29,7 @@ class MCTSNode:
             if action == child.parent_action:
                 return child
         #Child has not been seen yet. (MCTS has not seen this move. No data collected yet)
-        return MCTSNode(encode_state(unseen_board),parent=self,parent_action=action,agent=self.agent_color)
+        return MCTSNode(encode_state(unseen_board),self.policy_int,parent=self,parent_action=action,agent=self.agent_color)
 
     def untried_actions(self):
         board = decode_state(self.state_int)
@@ -52,7 +53,8 @@ class MCTSNode:
             next_state = result(board,action)
         
             child_node = MCTSNode(
-                encode_state(next_state), 
+                encode_state(next_state),
+                self.policy_int,
                 parent=self, 
                 parent_action=action, 
                 agent= self.agent_color
