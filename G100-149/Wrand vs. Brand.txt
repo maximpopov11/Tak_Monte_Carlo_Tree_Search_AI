@@ -1,0 +1,150 @@
+White won game #1 in 13.5 turns, the game took 261.2709631919861 seconds!
+ White W/L Record: 1/1 | Black W/L Record: 0/1 | Avg. Turns Per Game: 13.5 | Avg. Time Per Game: 261.2709631919861 seconds
+
+White won game #2 in 19.5 turns, the game took 382.35511660575867 seconds!
+ White W/L Record: 2/2 | Black W/L Record: 0/2 | Avg. Turns Per Game: 16.5 | Avg. Time Per Game: 321.8130398988724 seconds
+
+White won game #3 in 45.5 turns, the game took 906.1714887619019 seconds!
+ White W/L Record: 3/3 | Black W/L Record: 0/3 | Avg. Turns Per Game: 26.166666666666668 | Avg. Time Per Game: 516.5991895198822 seconds
+
+Black won game #4 in 28.0 turns, the game took 553.9200665950775 seconds!
+ White W/L Record: 3/4 | Black W/L Record: 1/4 | Avg. Turns Per Game: 26.625 | Avg. Time Per Game: 525.929408788681 seconds
+
+Black won game #5 in 24.0 turns, the game took 475.5795409679413 seconds!
+ White W/L Record: 3/5 | Black W/L Record: 2/5 | Avg. Turns Per Game: 26.1 | Avg. Time Per Game: 515.8594352245331 seconds
+
+Black won game #6 in 12.0 turns, the game took 233.30144238471985 seconds!
+ White W/L Record: 3/6 | Black W/L Record: 3/6 | Avg. Turns Per Game: 23.75 | Avg. Time Per Game: 468.7664364178975 seconds
+
+Black won game #7 in 33.0 turns, the game took 654.0595107078552 seconds!
+ White W/L Record: 3/7 | Black W/L Record: 4/7 | Avg. Turns Per Game: 25.071428571428573 | Avg. Time Per Game: 495.23687560217724 seconds
+
+White won game #8 in 13.5 turns, the game took 262.8312773704529 seconds!
+ White W/L Record: 4/8 | Black W/L Record: 4/8 | Avg. Turns Per Game: 23.625 | Avg. Time Per Game: 466.18617582321167 seconds
+
+White won game #9 in 12.5 turns, the game took 246.33073925971985 seconds!
+ White W/L Record: 5/9 | Black W/L Record: 4/9 | Avg. Turns Per Game: 22.38888888888889 | Avg. Time Per Game: 441.75779398282367 seconds
+
+White won game #10 in 33.5 turns, the game took 666.4761514663696 seconds!
+ White W/L Record: 6/10 | Black W/L Record: 4/10 | Avg. Turns Per Game: 23.5 | Avg. Time Per Game: 464.2296297311783 seconds
+
+White won game #11 in 34.5 turns, the game took 689.3187506198883 seconds!
+ White W/L Record: 7/11 | Black W/L Record: 4/11 | Avg. Turns Per Game: 24.5 | Avg. Time Per Game: 484.69227708469737 seconds
+
+Black won game #12 in 21.0 turns, the game took 414.3034451007843 seconds!
+ White W/L Record: 7/12 | Black W/L Record: 5/12 | Avg. Turns Per Game: 24.208333333333332 | Avg. Time Per Game: 478.82654108603793 seconds
+
+White won game #13 in 30.5 turns, the game took 604.2874610424042 seconds!
+ White W/L Record: 8/13 | Black W/L Record: 5/13 | Avg. Turns Per Game: 24.692307692307693 | Avg. Time Per Game: 488.4773810826815 seconds
+
+Black won game #14 in 34.0 turns, the game took 674.9207863807678 seconds!
+ White W/L Record: 8/14 | Black W/L Record: 6/14 | Avg. Turns Per Game: 25.357142857142858 | Avg. Time Per Game: 501.79476717540194 seconds
+
+White won game #15 in 10.5 turns, the game took 205.61468744277954 seconds!
+ White W/L Record: 9/15 | Black W/L Record: 6/15 | Avg. Turns Per Game: 24.366666666666667 | Avg. Time Per Game: 482.04942852656046 seconds
+
+White won game #16 in 24.5 turns, the game took 487.9966938495636 seconds!
+ White W/L Record: 10/16 | Black W/L Record: 6/16 | Avg. Turns Per Game: 24.375 | Avg. Time Per Game: 482.42113260924816 seconds
+
+Black won game #17 in 33.0 turns, the game took 654.6692674160004 seconds!
+ White W/L Record: 10/17 | Black W/L Record: 7/17 | Avg. Turns Per Game: 24.88235294117647 | Avg. Time Per Game: 492.55337583317475 seconds
+
+White won game #18 in 35.5 turns, the game took 708.3848798274994 seconds!
+ White W/L Record: 11/18 | Black W/L Record: 7/18 | Avg. Turns Per Game: 25.47222222222222 | Avg. Time Per Game: 504.5440149439706 seconds
+
+White won game #19 in 34.5 turns, the game took 683.6381001472473 seconds!
+ White W/L Record: 12/19 | Black W/L Record: 7/19 | Avg. Turns Per Game: 25.94736842105263 | Avg. Time Per Game: 513.9700194283536 seconds
+
+White won game #20 in 14.5 turns, the game took 282.52098655700684 seconds!
+ White W/L Record: 13/20 | Black W/L Record: 7/20 | Avg. Turns Per Game: 25.375 | Avg. Time Per Game: 502.39756778478625 seconds
+
+White won game #21 in 25.5 turns, the game took 504.9912602901459 seconds!
+ White W/L Record: 14/21 | Black W/L Record: 7/21 | Avg. Turns Per Game: 25.38095238095238 | Avg. Time Per Game: 502.5210769517081 seconds
+
+White won game #22 in 22.5 turns, the game took 445.2768929004669 seconds!
+ White W/L Record: 15/22 | Black W/L Record: 7/22 | Avg. Turns Per Game: 25.25 | Avg. Time Per Game: 499.9190685857426 seconds
+
+Black won game #23 in 19.0 turns, the game took 375.0396556854248 seconds!
+ White W/L Record: 15/23 | Black W/L Record: 8/23 | Avg. Turns Per Game: 24.97826086956522 | Avg. Time Per Game: 494.48952889442444 seconds
+
+White won game #24 in 28.5 turns, the game took 564.0767643451691 seconds!
+ White W/L Record: 16/24 | Black W/L Record: 8/24 | Avg. Turns Per Game: 25.125 | Avg. Time Per Game: 497.38899703820545 seconds
+
+Black won game #25 in 21.0 turns, the game took 414.91253757476807 seconds!
+ White W/L Record: 16/25 | Black W/L Record: 9/25 | Avg. Turns Per Game: 24.96 | Avg. Time Per Game: 494.08993865966795 seconds
+
+White won game #26 in 13.5 turns, the game took 262.9915156364441 seconds!
+ White W/L Record: 17/26 | Black W/L Record: 9/26 | Avg. Turns Per Game: 24.51923076923077 | Avg. Time Per Game: 485.20153777415936 seconds
+
+White won game #27 in 29.5 turns, the game took 582.5712153911591 seconds!
+ White W/L Record: 18/27 | Black W/L Record: 9/27 | Avg. Turns Per Game: 24.703703703703702 | Avg. Time Per Game: 488.8078221303445 seconds
+
+Black won game #28 in 8.0 turns, the game took 154.2692744731903 seconds!
+ White W/L Record: 18/28 | Black W/L Record: 10/28 | Avg. Turns Per Game: 24.107142857142858 | Avg. Time Per Game: 476.8600168568747 seconds
+
+White won game #29 in 30.5 turns, the game took 605.4628510475159 seconds!
+ White W/L Record: 19/29 | Black W/L Record: 10/29 | Avg. Turns Per Game: 24.32758620689655 | Avg. Time Per Game: 481.2945973462072 seconds
+
+White won game #30 in 8.5 turns, the game took 164.506840467453 seconds!
+ White W/L Record: 20/30 | Black W/L Record: 10/30 | Avg. Turns Per Game: 23.8 | Avg. Time Per Game: 470.7350054502487 seconds
+
+White won game #31 in 16.5 turns, the game took 323.88144540786743 seconds!
+ White W/L Record: 21/31 | Black W/L Record: 10/31 | Avg. Turns Per Game: 23.56451612903226 | Avg. Time Per Game: 465.99779383597837 seconds
+
+White won game #32 in 31.5 turns, the game took 625.8468675613403 seconds!
+ White W/L Record: 22/32 | Black W/L Record: 10/32 | Avg. Turns Per Game: 23.8125 | Avg. Time Per Game: 470.9930773898959 seconds
+
+White won game #33 in 34.5 turns, the game took 684.5056726932526 seconds!
+ White W/L Record: 23/33 | Black W/L Record: 10/33 | Avg. Turns Per Game: 24.136363636363637 | Avg. Time Per Game: 477.4631560354522 seconds
+
+White won game #34 in 13.5 turns, the game took 264.3741993904114 seconds!
+ White W/L Record: 24/34 | Black W/L Record: 10/34 | Avg. Turns Per Game: 23.823529411764707 | Avg. Time Per Game: 471.19583378118625 seconds
+
+Black won game #35 in 39.0 turns, the game took 773.5388398170471 seconds!
+ White W/L Record: 24/35 | Black W/L Record: 11/35 | Avg. Turns Per Game: 24.257142857142856 | Avg. Time Per Game: 479.8342053822109 seconds
+
+White won game #36 in 11.5 turns, the game took 222.10106706619263 seconds!
+ White W/L Record: 25/36 | Black W/L Record: 11/36 | Avg. Turns Per Game: 23.90277777777778 | Avg. Time Per Game: 472.67495154009924 seconds
+
+White won game #37 in 19.5 turns, the game took 384.68652963638306 seconds!
+ White W/L Record: 26/37 | Black W/L Record: 11/37 | Avg. Turns Per Game: 23.783783783783782 | Avg. Time Per Game: 470.29688608324204 seconds
+
+White won game #38 in 27.5 turns, the game took 542.8611423969269 seconds!
+ White W/L Record: 27/38 | Black W/L Record: 11/38 | Avg. Turns Per Game: 23.88157894736842 | Avg. Time Per Game: 472.2064717757074 seconds
+
+Black won game #39 in 37.0 turns, the game took 732.9986732006073 seconds!
+ White W/L Record: 27/39 | Black W/L Record: 12/39 | Avg. Turns Per Game: 24.21794871794872 | Avg. Time Per Game: 478.89345129942285 seconds
+
+Black won game #40 in 22.0 turns, the game took 432.2538046836853 seconds!
+ White W/L Record: 27/40 | Black W/L Record: 13/40 | Avg. Turns Per Game: 24.1625 | Avg. Time Per Game: 477.7274601340294 seconds
+
+White won game #41 in 16.5 turns, the game took 324.2104721069336 seconds!
+ White W/L Record: 28/41 | Black W/L Record: 13/41 | Avg. Turns Per Game: 23.975609756097562 | Avg. Time Per Game: 473.9831433528807 seconds
+
+White won game #42 in 30.5 turns, the game took 604.4269232749939 seconds!
+ White W/L Record: 29/42 | Black W/L Record: 13/42 | Avg. Turns Per Game: 24.13095238095238 | Avg. Time Per Game: 477.08894763674056 seconds
+
+White won game #43 in 23.5 turns, the game took 463.5773289203644 seconds!
+ White W/L Record: 30/43 | Black W/L Record: 13/43 | Avg. Turns Per Game: 24.11627906976744 | Avg. Time Per Game: 476.77472394566206 seconds
+
+Black won game #44 in 17.0 turns, the game took 331.8224766254425 seconds!
+ White W/L Record: 30/44 | Black W/L Record: 14/44 | Avg. Turns Per Game: 23.954545454545453 | Avg. Time Per Game: 473.4803546883843 seconds
+
+Black won game #45 in 23.0 turns, the game took 454.632226228714 seconds!
+ White W/L Record: 30/45 | Black W/L Record: 15/45 | Avg. Turns Per Game: 23.933333333333334 | Avg. Time Per Game: 473.0615073892805 seconds
+
+Black won game #46 in 19.0 turns, the game took 372.0578818321228 seconds!
+ White W/L Record: 30/46 | Black W/L Record: 16/46 | Avg. Turns Per Game: 23.82608695652174 | Avg. Time Per Game: 470.86577639890754 seconds
+
+White won game #47 in 7.5 turns, the game took 141.41224646568298 seconds!
+ White W/L Record: 31/47 | Black W/L Record: 16/47 | Avg. Turns Per Game: 23.47872340425532 | Avg. Time Per Game: 463.8561268258602 seconds
+
+White won game #48 in 34.5 turns, the game took 683.340115070343 seconds!
+ White W/L Record: 32/48 | Black W/L Record: 16/48 | Avg. Turns Per Game: 23.708333333333332 | Avg. Time Per Game: 468.4287099142869 seconds
+
+White won game #49 in 19.5 turns, the game took 384.1672959327698 seconds!
+ White W/L Record: 33/49 | Black W/L Record: 16/49 | Avg. Turns Per Game: 23.622448979591837 | Avg. Time Per Game: 466.7090892207866 seconds
+
+Black won game #50 in 41.0 turns, the game took 814.8523445129395 seconds!
+ White W/L Record: 33/50 | Black W/L Record: 17/50 | Avg. Turns Per Game: 23.97 | Avg. Time Per Game: 473.67195432662965 seconds
+

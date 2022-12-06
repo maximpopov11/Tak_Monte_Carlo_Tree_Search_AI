@@ -3,14 +3,16 @@ from time import *
 import numpy as np
 from collections import defaultdict
 from Tak import *
-import logging
 
+class Policy(Enum):
+    RANDOM,H1 = range(2)
 
 class MCTSNode:
-    def __init__(self, state_int, policy_int, parent = None, parent_action = None, agent = PieceColor.WHITE):
+    def __init__(self, state_int, rollout_policy_int = Policy.RANDOM, parent = None, parent_action = None, agent = PieceColor.WHITE):
         self.state_int = state_int
-        self.policy_int = policy_int
+        self.policy_int = rollout_policy_int
         self.agent_color = agent
+        self.rollout_policy_int = rollout_policy_int
         self.parent = parent
         self.parent_action = parent_action
         self.children = []
@@ -82,16 +84,18 @@ Untried Actions:{self._untried_actions}""")
     def is_terminal_node(self,board):
         return terminal_test(board, PieceColor.BLACK if self.agent_color == PieceColor.WHITE else PieceColor.WHITE)[0] 
         
+    
     def rollout(self):
         board = decode_state(self.state_int)
         color = PieceColor.BLACK if self.agent_color == PieceColor.WHITE else PieceColor.WHITE
         # f.write(top_board_string(board)+'\n')
+        score = self.get_score(board)
         end_state = terminal_test(board,self.agent_color)
         i = 0
         while not end_state[0]:   
             
             possible_moves = get_moves(board, color)
-            action = self.rollout_policy(possible_moves)
+            action, score = self.rollout_policy(possible_moves, color, board, score)
             board = result(board, action)
         
             # f.write(top_board_string(board))
@@ -117,56 +121,40 @@ Untried Actions:{self._untried_actions}""")
         choices_weights = [(c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n())) for c in self.children]
         return self.children[np.argmax(choices_weights)]
 
-    def rollout_policy(self, possible_moves):
-        if self.policy_int == 0:
-            return self.__random_rollout_policy(possible_moves)
-        elif self.policy_int == 1:
-            return self.__simple_heuristic_policy(possible_moves)
-        else:
-            raise ValueError("policy_int does not correspond to a policy:", self.policy_int)
+    def rollout_policy(self, possible_moves, color, board, base_score):
+        if self.rollout_policy_int == Policy.RANDOM:
+            return self.rand_rollout_policy(possible_moves)
+        if self.rollout_policy_int == Policy.H1:
+            return self.h1_rollout_policy(possible_moves,color,board,base_score)
 
-    def __random_rollout_policy(self, possible_moves):
-        """Returns random move"""
-        return possible_moves[np.random.randint(len(possible_moves))]
+    def get_score(self, board):
+        if self.rollout_policy_int == Policy.RANDOM:
+            return None
+        elif self.rollout_policy_int == Policy.H1:
+            return h1(board)
+        
+    def rand_rollout_policy(self, possible_moves:list[Union[PlacementMove,StackMove]])->tuple[Union[PlacementMove,StackMove],None]:
+        return (possible_moves[np.random.randint(len(possible_moves))], None)
 
-    def __simple_heuristic_policy(self, possible_moves):
-        """Returns random move weighted toward tile/capstone placement and large stack moves.
-        Placement of a tile/capstone is weighted at 3.
-        Stack moves are weighted at the number of moving pieces."""
-        weighted_list = []
-        place_tile_capstone_weight = int(BOARD_SIZE / 2)
-        for i in range(BOARD_SIZE):
-            weighted_list.append([])
-        # append moves to appropriate weight level in list
+    def h1_rollout_policy(self, possible_moves:list[Union[PlacementMove,StackMove]],\
+        color:PieceColor, board:list[list[deque[Piece]]],\
+        base_score:int)->tuple[Union[PlacementMove,StackMove],int]:
+
+        best_score = base_score
+        color_factor = 1 if color == PieceColor.WHITE else -1
+        best_moves = [possible_moves[np.random.randint(len(possible_moves))]]
         for move in possible_moves:
-            if type(move) == PlacementMove:
-                if move.piece != PieceType.WALL:
-                    weighted_list[place_tile_capstone_weight].append(move)
-            elif type(move) == StackMove:
-                # stack move of 1 piece is given the lowest weight
-                total = -1
-                for remainder in move.stack_remainders:
-                    total += remainder
-                weighted_list[total].append(move)
-            else:
-                weighted_list[1].append(move)
-        # get weighted-random move
-        total_weight = 0
-        for i in range(len(weighted_list)):
-            total_weight += (i+1) * len(weighted_list[i])
-        rand = np.random.randint(total_weight)
-        level = -1
-        for i in range(len(weighted_list)):
-            level_weight = (i+1) * len(weighted_list[i])
-            if rand > level_weight:
-                rand -= level_weight
-            else:
-                level = i
-                break
-        index = int(rand / (level + 1))
-        return weighted_list[level][index]
+            curr_score = h1_delta(board,move,base_score)  
+            if color_factor*(best_score - curr_score) < 0:
+                best_moves.clear()
+                best_moves.append(move)
+                best_score = curr_score
+            elif color_factor*(best_score - curr_score) == 0:
+                best_moves.append(move)
+        return best_moves[np.random.randint(len(best_moves))], best_score
 
-    def _tree_policy(self,board):
+
+    def _tree_policy(self,board:list[list[deque[Piece]]]):
         current_node = self
         while not current_node.is_terminal_node(board):
             if not current_node.is_fully_expanded():
@@ -177,13 +165,13 @@ Untried Actions:{self._untried_actions}""")
         return current_node
 
     def best_action(self):
-        sim_goal = 100
         sim_total = 0
         board = decode_state(self.state_int)
+        sim_goal = max(m.ceil(2 *len(self._untried_actions)),100)
         t_start = time()
         t_curr = t_start
         # t_curr - t_start < 30 and
-        while  sim_total <= sim_goal and t_curr - t_start < 10:
+        while sim_total < sim_goal or t_curr - t_start < 10:
             # f = open(f"simulation{i+1}.txt","w")
             # print("Simulation No.:",sim_total+1,end = ' ')
             v = self._tree_policy(board)
@@ -196,45 +184,3 @@ Untried Actions:{self._untried_actions}""")
         return self.best_child(c_param=0.1)
 
 
-#TODO: expand -> next_state = result(...) sometimes gets an error with Tak.py line 205 piece = ...pop() cannout pop from an empty dq.
-def main():
-    initial_state = bits_to_int([1]*GAMESIZE)
-    game = TakGame(decode_state(initial_state))
-    
-    white_root = MCTSNode(state_int=initial_state, policy_int=0)
-    white_selected_node = white_root.best_action()
-    action = white_selected_node.parent_action
-    make_move(game, action)
-    black_root = MCTSNode(state_int=encode_state(game.board), policy_int=1, agent = PieceColor.BLACK)
-    
-    while not black_root.is_terminal_node(decode_state(black_root.state_int)) and not white_root.is_terminal_node(decode_state(white_root.state_int)):
-        black_selected_node = black_root.best_action()
-        black_action = black_selected_node.parent_action
-        
-        print(f"{black_root.agent_color} won {black_root._results[1]} out of {black_root._number_of_visits} games")
-        print(f"{black_action} won  {black_selected_node._results[1]} out of  {black_selected_node._number_of_visits} games")
-        
-        make_move(game,black_action)
-        print(top_board_string(game.board))
-        print(stacks_string(game.board))
-
-        white_root = white_selected_node.return_child(black_action,game.board)
-        white_root.make_node_root(PieceColor.WHITE)
-
-        white_selected_node = white_root.best_action()
-        white_action = white_selected_node.parent_action
-
-        print(f"{white_root.agent_color} won {white_root._results[1]} out of {white_root._number_of_visits} games")
-        print(f"{white_action} won {white_selected_node._results[1]} out of {white_selected_node._number_of_visits} games")
-        
-        make_move(game,white_action)
-        print(top_board_string(game.board))
-        print(stacks_string(game.board))
-        
-        black_root = black_selected_node.return_child(white_action,game.board)
-        black_root.make_node_root(PieceColor.BLACK)
-
-    return 
-
-if __name__ == "__main__":
-    main()
